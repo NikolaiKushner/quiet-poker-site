@@ -6,35 +6,42 @@ import { appStoreUrl, supportEmail } from '../config';
 
 import table from '../assets/screenshots/table.png';
 import lobby from '../assets/screenshots/lobby.png';
+import setup from '../assets/screenshots/setup.png';
+import flop from '../assets/screenshots/flop.png';
 import showdown from '../assets/screenshots/showdown.png';
-import profile from '../assets/screenshots/profile.png';
-import blinds from '../assets/screenshots/blinds.png';
+import sitgo from '../assets/screenshots/sitgo.png';
+import privateRooms from '../assets/screenshots/private.png';
 
 const shots = [
   {
     src: lobby,
-    alt: "The Quiet Poker lobby on iPhone, offering an offline Texas Hold'em table against bots, an online table, and outs and pot-odds drills.",
-    caption: 'Pick a table. Offline against bots, or online with friends.',
+    alt: "The Quiet Poker lobby on iPhone: an offline cash game, a six-player Sit & Go, private rooms joined with a code, and outs and pot-odds drills.",
+    caption: 'Two offline games, private rooms, two drills. No lobby to wait in.',
   },
   {
-    src: table,
-    alt: "A six-handed offline Texas Hold'em table in portrait on iPhone, hole cards and the Fold, Check and Raise buttons along the bottom of the screen.",
-    caption: 'Portrait, six-max, everything you tap within one thumb.',
+    src: setup,
+    alt: 'The table setup screen, offering six-max or heads-up, bots on Easy, Standard or Hard, and one slider that moves blinds and buy-in together.',
+    caption: 'Six-max or heads-up, three levels of opposition, seven levels of stakes.',
+  },
+  {
+    src: flop,
+    alt: "A six-handed offline Texas Hold'em table in portrait on iPhone, the flop dealt and the Fold, Call and Raise buttons along the bottom of the screen.",
+    caption: 'The flop, the pot, and three buttons in the same three places.',
   },
   {
     src: showdown,
-    alt: 'A Texas Hold’em showdown with the full board dealt and the amount won shown beneath the hole cards.',
-    caption: 'Showdown shows every hand that got there.',
+    alt: 'A Texas Hold’em showdown with the full board dealt, the winning hand named, and the amount won shown beneath the hole cards.',
+    caption: 'Showdown names the hand that won and what it paid.',
   },
   {
-    src: blinds,
-    alt: 'A list of blind levels from 1/2 upward with buy-ins, higher stakes locked until the play-chip bank can cover them.',
-    caption: 'Blind levels unlock as the bank grows.',
+    src: sitgo,
+    alt: 'The Sit & Go screen offering a Standard and a High Roller tournament, each showing its entry, blinds, starting stack and prize pool.',
+    caption: 'Sit & Go: six players, top three paid, no rebuys.',
   },
   {
-    src: profile,
-    alt: 'A poker statistics screen showing hands played, win rate, net result, VPIP, PFR and 3-bet, above a list of recent hands.',
-    caption: 'The numbers, and the hands behind them.',
+    src: privateRooms,
+    alt: 'The private rooms screen, with a button to open a six-seat room and six boxes for typing a room code.',
+    caption: 'Open a room, send the six-digit code. That is the whole setup.',
   },
 ];
 
@@ -46,36 +53,44 @@ const steps = [
   },
   {
     n: '02',
-    title: 'Pick your stakes',
-    body: 'Blind levels from 1/2 upward, each with its own buy-in. Higher ones unlock as your play-chip bank grows.',
+    title: 'Set the table',
+    body: 'Six-max or heads-up, bots on Easy, Standard or Hard, and one slider for the stakes — seven levels from 1/2 to 100/200, each of them 100 big blinds deep.',
   },
   {
     n: '03',
     title: 'Play a hand',
-    body: 'Six-max against bots, dealt immediately. Fold, Check and Raise sit under your thumb in the same order every street.',
+    body: 'Dealt immediately. Fold, check or call, and raise sit under your thumb in the same order on every street.',
   },
 ];
 
 const features = [
   {
     title: 'Practise Hold’em offline, with no connection',
-    body: 'An offline six-max table against bots, dealt the moment you open it. On a plane, on the Underground, in a queue — no signal and no account needed.',
+    body: 'A table against bots, dealt the moment you open it, six-max or heads-up. On a plane, on the Underground, in a queue — no signal and no account needed.',
+  },
+  {
+    title: 'A tournament that ends',
+    body: 'Sit & Go: six players, one entry, blinds that climb every eight hands and no rebuys. Top three are paid, and when you are out it is over — a session with a result at the end of it, not a table you have to decide when to leave.',
+  },
+  {
+    title: 'Opposition you can turn up',
+    body: 'Easy, Standard or Hard, picked before you sit and shared by everyone at the table. Easy forgives a bad call. Hard reads ranges properly and rarely hands you anything.',
   },
   {
     title: 'Built to be played one-handed',
-    body: 'Portrait, always. Fold, Check and Raise stay in the bottom of the screen in the same order on every street, so the hand becomes muscle memory. Swipe up to fold.',
+    body: 'Portrait, always. Fold, check or call, and raise stay at the bottom of the screen in the same three places on every street, so the hand becomes muscle memory. Swipe up to fold, or arm your action before the turn reaches you.',
   },
   {
     title: 'Outs and pot-odds drills',
     body: 'Count the cards that help. Call or fold on the number. Short practice for the two decisions that cost the most, away from the table with nothing riding on it.',
   },
   {
-    title: 'Private tables with friends',
-    body: 'Open a private online table and send the code. A home game that does not need everybody in the same room, and no money anywhere near it.',
+    title: 'Private rooms with friends',
+    body: 'Open a six-seat room, set the stakes and the time per turn, and send the six-digit code. A home game that does not need everybody in the same room, and no money anywhere near it.',
   },
   {
-    title: 'The statistics that actually matter',
-    body: 'Hands, win rate, net result, VPIP, PFR and 3-bet, with the recent hands that produced them — so a leak is something you can see rather than suspect.',
+    title: 'Statistics that name the leak',
+    body: 'VPIP, PFR, 3-bet and postflop aggression, plotted against the styles they add up to — tight or loose, aggressive or passive — with the recent hands behind them. A leak becomes something you can see rather than suspect.',
   },
   {
     title: 'No ads. No tracking. No data broker.',
@@ -86,15 +101,15 @@ const features = [
 const audiences = [
   {
     title: 'Learning Texas Hold’em',
-    body: 'Hands cost nothing, so you can play the spot ten times instead of reading about it once. Tap the board for the hand guide whenever you are not sure what beats what.',
+    body: 'Hands cost nothing, so you can play the spot ten times instead of reading about it once. Start the bots on Easy, and tap the board for the hand guide whenever you are not sure what beats what.',
   },
   {
     title: 'Keeping sharp between home games',
-    body: 'Ranges, pace and pot control go stale between sessions. Twenty hands against bots on the way to work keeps them from it.',
+    body: 'Ranges, pace and pot control go stale between sessions. Twenty hands against bots on the way to work, or one Sit & Go, keeps them from it.',
   },
   {
     title: 'Hosting the game yourself',
-    body: 'A private table and a code is the whole setup. Nobody installs a client, nobody sends anybody money, and nobody has to host in their kitchen.',
+    body: 'A private room and a code is the whole setup. Nobody installs a client, nobody sends anybody money, and nobody has to host in their kitchen.',
   },
 ];
 
@@ -105,15 +120,23 @@ const faqs = [
   },
   {
     q: 'Can I play poker offline, with no internet?',
-    a: 'Yes. The offline six-max table against bots is the app’s main mode and needs no connection and no account. A connection is only needed for online tables and for carrying your chips to another device.',
+    a: 'Yes. The offline table against bots is the app’s main mode, and the Sit & Go tournament is offline too. Neither needs a connection or an account. A connection is only needed for private rooms and for carrying your chips to another device.',
+  },
+  {
+    q: 'What is a Sit & Go?',
+    a: 'A six-player tournament against bots. Everyone starts on the same stack, the blinds climb every eight hands, there are no rebuys, and the last three standing are paid. Two entries to choose from, Standard and High Roller, and the bots can be set to Easy, Standard or Hard.',
+  },
+  {
+    q: 'Can I play heads-up?',
+    a: 'Yes. The cash table is six-max or heads-up — pick it in table setup, along with the difficulty and the stakes, before you sit down.',
   },
   {
     q: 'Do I need an account to play?',
-    a: 'Not for offline play — open the app and you are dealt in, and nothing about you is stored anywhere. Signing in with Apple is what lets your chips and subscription follow you to another device, and what online tables need.',
+    a: 'Not for offline play — open the app and you are dealt in, and nothing about you is stored anywhere. Signing in with Apple is what lets your chips and subscription follow you to another device, and what private rooms need.',
   },
   {
     q: 'Can I play poker with friends?',
-    a: 'Yes. Open a private online table and send friends the code. Only people with the code can sit down.',
+    a: 'Yes. Open a private room and send friends the six-digit code. Only people with the code can sit down, and everyone buys in for the same amount.',
   },
   {
     q: 'Does the app have ads?',
@@ -121,7 +144,7 @@ const faqs = [
   },
   {
     q: 'What does the Plus subscription add?',
-    a: 'A larger daily chip reward on top of the standard one, and cosmetic card backs and table colours. Everything else in the app stays exactly as it is without it. It renews until cancelled, and you cancel it in Settings or from the Shop tab.',
+    a: 'A larger daily chip reward on top of the standard one, and every card back and table colour for as long as you subscribe. It changes nothing at the table: the bots, the stakes and the private room are the same with it or without it. It renews until cancelled, and you cancel it in Settings or from the Shop tab.',
   },
   {
     q: 'Can I cash out my chips?',
@@ -135,7 +158,7 @@ const faqs = [
 
 const title = "Quiet Poker — Texas Hold'em Practice App for iPhone";
 const description =
-  "Practise Texas Hold'em on iPhone with play chips only. Offline six-max vs bots, private tables with friends, outs and pot-odds drills. No ads, no tracking.";
+  "Practise Texas Hold'em on iPhone with play chips only. Offline six-max and heads-up against bots, Sit & Go tournaments, private rooms, outs and pot-odds drills. No ads, no tracking.";
 
 const schema = [
   {
@@ -158,10 +181,12 @@ const schema = [
         'Free to play with play chips. Optional Plus subscription and one-off chip packs are sold through the App Store.',
     },
     featureList: [
-      "Offline six-max Texas Hold'em against bots",
-      'Private online tables joined with a code',
+      "Offline six-max and heads-up Texas Hold'em against bots",
+      'Six-player Sit & Go tournaments against bots',
+      'Bot difficulty set to Easy, Standard or Hard',
+      'Private rooms joined with a six-digit code',
       'Outs and pot-odds practice drills',
-      'Hand history with VPIP, PFR and 3-bet statistics',
+      'VPIP, PFR, 3-bet and aggression statistics with hand history',
       'One-handed portrait table',
       'No advertising or analytics software',
     ],
@@ -188,9 +213,10 @@ const schema = [
         <h1>Texas Hold&rsquo;em practice, without the noise.</h1>
         <p class="lede">
           A calm Hold&rsquo;em table you can play with one thumb. Sit down
-          against bots in a second with no connection and no account, or open a
-          private table and send friends the code. Play chips only &mdash;
-          nothing to cash out, and nothing to win.
+          against bots in a second with no connection and no account, play a
+          Sit &amp; Go that actually ends, or open a private room and send
+          friends the code. Play chips only &mdash; nothing to cash out, and
+          nothing to win.
         </p>
 
         {
@@ -216,7 +242,7 @@ const schema = [
       <div class="hero__shot">
         <Phone
           src={table}
-          alt="A six-handed Quiet Poker Texas Hold'em table in portrait on iPhone, with the Fold, Check and Raise buttons along the bottom of the screen."
+          alt="A six-handed Quiet Poker Texas Hold'em table in portrait on iPhone, with the Fold, Call and Raise buttons along the bottom of the screen."
           eager
         />
       </div>
@@ -245,7 +271,7 @@ const schema = [
 
   <section class="wrap section">
     <p class="eyebrow">What it looks like</p>
-    <h2>Five screens, and that is most of the app.</h2>
+    <h2>Six screens, and that is most of the app.</h2>
     <p class="lede">
       One table, one theme, and no second screen doing the same job as the
       first.
@@ -301,8 +327,9 @@ const schema = [
         <h3>Free</h3>
         <p class="plan__note">Everything on this page.</p>
         <ul>
-          <li>Offline six-max against bots, at every blind level the bank covers</li>
-          <li>Online tables, including private ones opened with a code</li>
+          <li>Offline cash games, six-max or heads-up, at every level your bank covers</li>
+          <li>Sit &amp; Go tournaments, Standard and High Roller</li>
+          <li>Private rooms, opened or joined with a code</li>
           <li>The outs and pot-odds drills</li>
           <li>Your statistics and hand history</li>
           <li>A chip reward every day</li>
@@ -314,8 +341,8 @@ const schema = [
         <p class="plan__note">Monthly or yearly. Cancel in Settings, as with any subscription.</p>
         <ul>
           <li>A larger daily chip reward, on top of the standard one</li>
-          <li>Card backs and table colours</li>
-          <li>Everything in Free, unchanged</li>
+          <li>Every card back and table colour, while you subscribe</li>
+          <li>Nothing that changes a hand &mdash; everyone gets a private room, Plus or not</li>
         </ul>
       </div>
 
