@@ -85,3 +85,11 @@ The server pulls; nothing here holds a key to that machine. Do not add one, and
 do not add a workflow that connects to it — not an SSH step, not rsync, not a
 deploy key in the repository's secrets. That machine also runs Postgres and the
 API, and a credential here would make a GitHub compromise a root shell on it.
+
+`infra/` is the box's half of that: the deploy script, its systemd unit and
+timer, and the one-time stand-up script. It lives here rather than in the
+application repository so that publishing a page never waits on an API release
+and can never cause one. The script updates its own checkout from `main` before
+it runs, so a change to it ships like a change to a page. The unit file does
+not, deliberately — the checkout is writable by an unprivileged account, and a
+unit read from there would let that account choose what systemd runs.

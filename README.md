@@ -23,6 +23,11 @@ Pushing to `main` deploys. The workflow builds the site, attaches
 checks the digest and moves a symlink — live within five minutes. The server
 pulls; nothing here can reach it.
 
+`infra/` is that half: the deploy script, its systemd unit and timer, and
+`site-bootstrap.sh`, which stands the whole thing up in one SSH session. The
+site deploys on its own — no part of it waits for the application's release,
+and no part of it can restart the API.
+
 The rules that apply to changes here are in `AGENTS.md` — the short version is
 no tests, no prices, and nothing on the page that has not shipped.
 

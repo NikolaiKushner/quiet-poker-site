@@ -1,0 +1,15 @@
+[Unit]
+Description=Check for a new release of the Quiet Poker marketing site
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+# Five minutes is the whole latency of a publish: push, the workflow builds and
+# cuts a release in about a minute, and this finds it on the next tick. A page
+# of marketing copy does not need to be live sooner, and each tick that finds
+# nothing is one request to github.com.
+AccuracySec=30s
+Unit=quiet-poker-site.service
+
+[Install]
+WantedBy=timers.target

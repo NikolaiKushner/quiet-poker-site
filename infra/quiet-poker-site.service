@@ -1,0 +1,67 @@
+[Unit]
+Description=Publish the latest release of the Quiet Poker marketing site
+Documentation=https://github.com/NikolaiKushner/quiet-poker-site
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/quiet-poker-site/infra/site-deploy.sh
+# A download and an untar. Beyond this the network is the problem and the next
+# tick should start clean rather than pile on.
+TimeoutStartSec=300
+
+# Not root. This unit downloads an archive from the internet and unpacks it on
+# the machine that runs Postgres and the API; the account that does so owns its
+# own checkout and its own directory under /srv and can reach nothing else. A
+# compromise of this repository or of a release then costs a defaced page, not
+# a shell beside the database.
+User=quiet-poker-site
+Group=quiet-poker-site
+Environment=HOME=/var/lib/quiet-poker-site
+StateDirectory=quiet-poker-site
+StateDirectoryMode=0750
+
+# Below the database in every queue. Unpacking a tarball is not urgent: a
+# publish that made a query wait would be a worse outage than a page being five
+# minutes stale.
+Nice=10
+CPUWeight=20
+IOWeight=20
+IOSchedulingClass=idle
+# Not tuning, a ceiling. An archive that decompresses without bound fails this
+# unit instead of reaching the out-of-memory killer, which would pick Postgres.
+MemoryMax=512M
+TasksMax=64
+
+# The filesystem is read-only to it apart from the two directories it owns: the
+# tree Caddy serves, and its own checkout, which it updates from `main` so that
+# a change to the deploy script is a push like any other.
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/quiet-poker-site /opt/quiet-poker-site
+PrivateTmp=true
+PrivateDevices=true
+
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=true
+
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+RestrictNamespaces=true
+RestrictRealtime=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+# AF_NETLINK is there because resolving a name asks the kernel for the
+# interface list; without it curl fails before it reaches the network.
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
