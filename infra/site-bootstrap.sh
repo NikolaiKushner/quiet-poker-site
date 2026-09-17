@@ -32,6 +32,12 @@ if ! id -u "$ACCOUNT" >/dev/null 2>&1; then
   echo "created the $ACCOUNT account"
 fi
 
+# The checkout belongs to the site account, and git refuses to touch a
+# repository owned by somebody else unless told it is safe. Without that, the
+# second run of this script stops here — after the first one has already handed
+# the directory over — and the unit file below never gets refreshed.
+git() { command git -c safe.directory="$CHECKOUT" "$@"; }
+
 if [ -d "$CHECKOUT/.git" ]; then
   git -C "$CHECKOUT" fetch --quiet origin main
   git -C "$CHECKOUT" reset --hard --quiet FETCH_HEAD
