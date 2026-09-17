@@ -1,17 +1,41 @@
-# Publishing the site is a button, the way releasing the app is a button.
-# Pushing to main builds nothing and deploys nothing.
+# A push to main publishes the site. What it does not do is reach the server:
+# this job builds the pages and attaches them to a GitHub Release, and the box
+# notices the release and pulls it. Nothing here holds a credential for that
+# machine, and nothing here connects to it.
+#
+# That direction is the whole security decision, and it is the same one the
+# application repository makes for the API — see docs/runbooks/vps-architecture.md
+# there. A push-based deploy needs a key with access to the box stored in
+# GitHub, which makes a GitHub compromise a root shell on the machine that also
+# runs Postgres. A static page is not worth that, so the page travels and the
+# key does not exist.
 #
 # This creates the release and attaches the tarball in one run, rather than
 # building when a release appears. A release that exists before its assets do
-# is a release the server will see and be unable to fetch, every two minutes,
+# is a release the server will see and be unable to fetch, every five minutes,
 # until the upload finishes.
 name: Publish the site
 
 on:
+  push:
+    branches: [main]
+    # A change to prose about the site is not a change to the site. Without
+    # this, editing this comment would cut a release.
+    paths-ignore:
+      - '**/*.md'
+      - LICENSE
+      - .gitignore
   workflow_dispatch:
 
 permissions:
   contents: write
+
+# Two pushes a minute apart cut two releases, and the box takes the newer one.
+# What must not happen is a run being cancelled between creating a release and
+# uploading its assets, which would leave a release the box can never fetch.
+concurrency:
+  group: publish-site
+  cancel-in-progress: false
 
 jobs:
   publish:

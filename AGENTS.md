@@ -74,9 +74,14 @@ public and the site is what the App Store points at.
 
 ## How a change reaches the server
 
-Publishing a GitHub Release builds the site and attaches `site.tar.gz`. A timer
-on the VPS notices the new release, checks the digest, unpacks it and moves a
-symlink. Pushing to `main` deploys nothing.
+A push to `main` builds the site and attaches `site.tar.gz` to a new GitHub
+Release. A timer on the VPS notices the release, checks the digest, unpacks it
+and moves a symlink. The site is live within five minutes of the push.
+
+So `main` is the published site. A commit here is a deploy, and the branch is
+not a place to park work in progress.
 
 The server pulls; nothing here holds a key to that machine. Do not add one, and
-do not add a workflow that connects to it.
+do not add a workflow that connects to it — not an SSH step, not rsync, not a
+deploy key in the repository's secrets. That machine also runs Postgres and the
+API, and a credential here would make a GitHub compromise a root shell on it.

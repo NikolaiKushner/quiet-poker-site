@@ -18,9 +18,10 @@ npm run build    # dist/
 `node tools/make-og.mjs` and committed. Run it after changing the wordmark or
 the mark; nothing else needs it.
 
-Deploying is publishing a GitHub Release: the workflow builds the site,
-attaches `site.tar.gz`, and a timer on the server picks it up. Pushing to
-`main` deploys nothing.
+Pushing to `main` deploys. The workflow builds the site, attaches
+`site.tar.gz` to a GitHub Release, and a timer on the server notices it,
+checks the digest and moves a symlink — live within five minutes. The server
+pulls; nothing here can reach it.
 
 The rules that apply to changes here are in `AGENTS.md` — the short version is
 no tests, no prices, and nothing on the page that has not shipped.
