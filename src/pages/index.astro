@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Phone from '../components/Phone.astro';
+import Card from '../components/Card.astro';
 import ChipMark from '../components/ChipMark.astro';
 import { appStoreUrl, supportEmail } from '../config';
 
@@ -12,36 +13,61 @@ import showdown from '../assets/screenshots/showdown.png';
 import sitgo from '../assets/screenshots/sitgo.png';
 import privateRooms from '../assets/screenshots/private.png';
 
-const shots = [
+/* Every claim on this page is about the build people can download today. The
+   wording of a feature lives here once and is reused by the schema below. */
+
+const facts = [
+  { k: 'Account', v: 'None needed' },
+  { k: 'Signal', v: 'Works with none' },
+  { k: 'Ads', v: 'None, ever' },
+  { k: 'Chips', v: 'Play only' },
+];
+
+const scenes = [
   {
-    src: lobby,
-    alt: "The Quiet Poker lobby on iPhone: an offline cash game, a six-player Sit & Go, private rooms joined with a code, and outs and pot-odds drills.",
-    caption: 'Two offline games, private rooms, two drills. No lobby to wait in.',
+    id: 'sit-down',
+    eyebrow: 'Sit down',
+    title: 'Dealt in before the kettle boils.',
+    body: 'Open the app and the table is there. Six-max or heads-up, bots on Easy, Standard or Hard, and one slider that moves blinds and buy-in together, seven levels from 1/2 to 100/200, each of them 100 big blinds deep.',
+    points: ['No sign-up and no lobby', 'Three levels of opposition', 'Seven levels of stakes'],
+    front: {
+      src: setup,
+      alt: 'The table setup screen, offering six-max or heads-up, bots on Easy, Standard or Hard, and one slider that moves blinds and buy-in together.',
+    },
+    back: {
+      src: lobby,
+      alt: "The Quiet Poker lobby on iPhone: an offline cash game, a six-player Sit & Go, private rooms joined with a code, and outs and pot-odds drills.",
+    },
   },
   {
-    src: setup,
-    alt: 'The table setup screen, offering six-max or heads-up, bots on Easy, Standard or Hard, and one slider that moves blinds and buy-in together.',
-    caption: 'Six-max or heads-up, three levels of opposition, seven levels of stakes.',
+    id: 'one-thumb',
+    eyebrow: 'Play',
+    title: 'Built for one thumb, in portrait, always.',
+    body: 'Fold, check or call, and raise sit at the bottom of the screen in the same three places on every street, so a hand becomes muscle memory. Swipe up to fold. Arm your action before the turn reaches you. Showdown names the hand that won and what it paid.',
+    points: ['Same three buttons on every street', 'Swipe up to fold', 'Tap the board for the hand guide'],
+    front: {
+      src: flop,
+      alt: "A six-handed offline Texas Hold'em table in portrait on iPhone, the flop dealt and the Fold, Call and Raise buttons along the bottom of the screen.",
+    },
+    back: {
+      src: showdown,
+      alt: 'A Texas Hold’em showdown with the full board dealt, the winning hand named, and the amount won shown beneath the hole cards.',
+    },
   },
   {
-    src: flop,
-    alt: "A six-handed offline Texas Hold'em table in portrait on iPhone, the flop dealt and the Fold, Call and Raise buttons along the bottom of the screen.",
-    caption: 'The flop, the pot, and three buttons in the same three places.',
-  },
-  {
-    src: showdown,
-    alt: 'A Texas Hold’em showdown with the full board dealt, the winning hand named, and the amount won shown beneath the hole cards.',
-    caption: 'Showdown names the hand that won and what it paid.',
-  },
-  {
-    src: sitgo,
-    alt: 'The Sit & Go screen offering a Standard and a High Roller tournament, each showing its entry, blinds, starting stack and prize pool.',
-    caption: 'Sit & Go: six players, top three paid, no rebuys.',
-  },
-  {
-    src: privateRooms,
-    alt: 'The private rooms screen, with a button to open a six-seat room and six boxes for typing a room code.',
-    caption: 'Open a room, send the six-digit code. That is the whole setup.',
+    id: 'a-result',
+    eyebrow: 'Finish',
+    title: 'A tournament that ends. A room for friends.',
+    body: 'Sit & Go: six players, blinds that climb every eight hands, no rebuys, top three paid. When you are out it is over. Or open a private room, set the stakes and the time per turn, and send the six-digit code. A home game with no money anywhere near it.',
+    points: ['Standard and High Roller entries', 'Six-seat private rooms', 'One code is the whole setup'],
+    front: {
+      src: sitgo,
+      alt: 'The Sit & Go screen offering a Standard and a High Roller tournament, each showing its entry, blinds, starting stack and prize pool.',
+    },
+    back: {
+      src: privateRooms,
+      alt: 'The private rooms screen, with a button to open a six-seat room and six boxes for typing a room code.',
+    },
   },
 ];
 
@@ -54,7 +80,7 @@ const steps = [
   {
     n: '02',
     title: 'Set the table',
-    body: 'Six-max or heads-up, bots on Easy, Standard or Hard, and one slider for the stakes — seven levels from 1/2 to 100/200, each of them 100 big blinds deep.',
+    body: 'Six-max or heads-up, bots on Easy, Standard or Hard, and one slider for the stakes.',
   },
   {
     n: '03',
@@ -66,35 +92,37 @@ const steps = [
 const features = [
   {
     title: 'Practise Hold’em offline, with no connection',
-    body: 'A table against bots, dealt the moment you open it, six-max or heads-up. On a plane, on the Underground, in a queue — no signal and no account needed.',
-  },
-  {
-    title: 'A tournament that ends',
-    body: 'Sit & Go: six players, one entry, blinds that climb every eight hands and no rebuys. Top three are paid, and when you are out it is over — a session with a result at the end of it, not a table you have to decide when to leave.',
+    body: 'A table against bots, dealt the moment you open it, six-max or heads-up. On a plane, on the Underground, in a queue: no signal and no account needed.',
+    wide: true,
   },
   {
     title: 'Opposition you can turn up',
-    body: 'Easy, Standard or Hard, picked before you sit and shared by everyone at the table. Easy forgives a bad call. Hard reads ranges properly and rarely hands you anything.',
+    body: 'Easy forgives a bad call. Hard reads ranges properly and rarely hands you anything. Picked before you sit, shared by everyone at the table.',
+    wide: true,
   },
   {
-    title: 'Built to be played one-handed',
-    body: 'Portrait, always. Fold, check or call, and raise stay at the bottom of the screen in the same three places on every street, so the hand becomes muscle memory. Swipe up to fold, or arm your action before the turn reaches you.',
+    title: 'A tournament that ends',
+    body: 'Six players, one entry, blinds that climb, no rebuys. A session with a result at the end of it, not a table you have to decide when to leave.',
   },
   {
     title: 'Outs and pot-odds drills',
-    body: 'Count the cards that help. Call or fold on the number. Short practice for the two decisions that cost the most, away from the table with nothing riding on it.',
+    body: 'Count the cards that help. Call or fold on the number. Short practice for the two decisions that cost the most, with nothing riding on it.',
   },
   {
     title: 'Private rooms with friends',
-    body: 'Open a six-seat room, set the stakes and the time per turn, and send the six-digit code. A home game that does not need everybody in the same room, and no money anywhere near it.',
+    body: 'Open a six-seat room, set the stakes and the time per turn, and send the six-digit code. Only people with the code can sit down.',
   },
   {
     title: 'Statistics that name the leak',
-    body: 'VPIP, PFR, 3-bet and postflop aggression, plotted against the styles they add up to — tight or loose, aggressive or passive — with the recent hands behind them. A leak becomes something you can see rather than suspect.',
+    body: 'VPIP, PFR, 3-bet and postflop aggression, plotted against the styles they add up to, with the recent hands behind them. A leak becomes something you can see rather than suspect.',
   },
   {
     title: 'No ads. No tracking. No data broker.',
     body: 'The app contains no advertising and no analytics software from anyone. Nothing about you is sold or shared, and offline play sends nothing anywhere.',
+  },
+  {
+    title: 'One table, one theme',
+    body: 'A flat studio surface, large type, high-contrast cards. No neon, no oval felt, no second screen doing the same job as the first.',
   },
 ];
 
@@ -128,11 +156,11 @@ const faqs = [
   },
   {
     q: 'Can I play heads-up?',
-    a: 'Yes. The cash table is six-max or heads-up — pick it in table setup, along with the difficulty and the stakes, before you sit down.',
+    a: 'Yes. The cash table is six-max or heads-up. Pick it in table setup, along with the difficulty and the stakes, before you sit down.',
   },
   {
     q: 'Do I need an account to play?',
-    a: 'Not for offline play — open the app and you are dealt in, and nothing about you is stored anywhere. Signing in with Apple is what lets your chips and subscription follow you to another device, and what private rooms need.',
+    a: 'Not for offline play. Open the app and you are dealt in, and nothing about you is stored anywhere. Signing in with Apple is what lets your chips and subscription follow you to another device, and what private rooms need.',
   },
   {
     q: 'Can I play poker with friends?',
@@ -148,7 +176,7 @@ const faqs = [
   },
   {
     q: 'Can I cash out my chips?',
-    a: 'No, and that is deliberate. Chips are there to keep playing with. A chip pack buys chips the way a level pack buys levels — not a stake, and not a balance.',
+    a: 'No, and that is deliberate. Chips are there to keep playing with. A chip pack buys chips the way a level pack buys levels: not a stake, and not a balance.',
   },
   {
     q: 'Which devices does it run on?',
@@ -206,55 +234,106 @@ const schema = [
 ---
 
 <Base title={title} description={description} schema={schema}>
+  <!-- Hero: the table under a studio light, two cards on the felt. -->
   <section class="hero">
+    <div class="hero__light" aria-hidden="true"></div>
     <div class="wrap hero__inner">
       <div class="hero__copy">
         <p class="eyebrow">Texas Hold&rsquo;em &middot; iPhone and iPad</p>
-        <h1>Texas Hold&rsquo;em practice, without the noise.</h1>
+        <h1>
+          Texas Hold&rsquo;em practice,
+          <span class="hero__soft">without the noise.</span>
+        </h1>
         <p class="lede">
-          A calm Hold&rsquo;em table you can play with one thumb. Sit down
-          against bots in a second with no connection and no account, play a
-          Sit &amp; Go that actually ends, or open a private room and send
-          friends the code. Play chips only &mdash; nothing to cash out, and
-          nothing to win.
+          A calm table you can play with one thumb. Sit down against bots in a
+          second with no connection and no account, play a Sit&nbsp;&amp;&nbsp;Go
+          that actually ends, or open a private room and send friends the code.
+          Play chips only: nothing to cash out, nothing to win.
         </p>
 
-        {
-          appStoreUrl ? (
-            <a class="cta" href={appStoreUrl}>
-              Download on the App Store
-            </a>
-          ) : (
-            <p class="cta cta--pending">
-              <ChipMark size={18} />
-              Coming to the App Store
-            </p>
-          )
-        }
-
-        <ul class="hero__points">
-          <li>No ads, no analytics, no data broker</li>
-          <li>Works with no signal</li>
-          <li>Free to play</li>
-        </ul>
+        <div class="hero__actions">
+          {
+            appStoreUrl ? (
+              <a class="btn btn--primary" href={appStoreUrl}>
+                Download on the App Store
+              </a>
+            ) : (
+              <span class="btn btn--pending">
+                <ChipMark size={18} />
+                Coming to the App Store
+              </span>
+            )
+          }
+          <a class="btn btn--ghost" href="#screens">See the table</a>
+        </div>
       </div>
 
-      <div class="hero__shot">
+      <div class="hero__stage">
+        <Card rank="A" suit="clubs" class="hero__card hero__card--a" />
+        <Card rank="K" suit="hearts" class="hero__card hero__card--k" />
         <Phone
+          class="hero__phone"
+          width="clamp(230px, 24vw, 330px)"
           src={table}
           alt="A six-handed Quiet Poker Texas Hold'em table in portrait on iPhone, with the Fold, Call and Raise buttons along the bottom of the screen."
           eager
         />
       </div>
     </div>
+
+    <div class="wrap">
+      <dl class="facts">
+        {
+          facts.map((f) => (
+            <div class="facts__item">
+              <dt class="eyebrow">{f.k}</dt>
+              <dd>{f.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
   </section>
 
-  <section class="wrap section">
-    <p class="eyebrow">How it works</p>
-    <h2>Three taps and you are in a hand.</h2>
-    <p class="lede">
-      No lobby to wait in, no table to hunt for, and nothing to fill in first.
-    </p>
+  <!-- Three scenes, each a pair of screens and the sentence they earn. -->
+  <section class="wrap section" id="screens">
+    <header class="section__head reveal">
+      <p class="eyebrow">What it looks like</p>
+      <h2>Six screens, and that is most of the app.</h2>
+      <p class="lede">
+        One table, one theme, and no second screen doing the same job as the
+        first.
+      </p>
+    </header>
+
+    <div class="scenes">
+      {
+        scenes.map((scene, i) => (
+          <article class:list={['scene', 'reveal', i % 2 === 1 && 'scene--flip']} id={scene.id}>
+            <div class="scene__copy">
+              <p class="eyebrow">{scene.eyebrow}</p>
+              <h3>{scene.title}</h3>
+              <p class="scene__body">{scene.body}</p>
+              <ul class="scene__points">
+                {scene.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+            <div class="scene__stage">
+              <Phone class="scene__phone scene__phone--back" width="46%" src={scene.back.src} alt={scene.back.alt} />
+              <Phone class="scene__phone scene__phone--front" width="54%" src={scene.front.src} alt={scene.front.alt} />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- How it works: three steps on one rail. -->
+  <section class="wrap section reveal">
+    <header class="section__head">
+      <p class="eyebrow">How it works</p>
+      <h2>Three taps and you are in a hand.</h2>
+    </header>
 
     <ol class="steps">
       {
@@ -269,27 +348,18 @@ const schema = [
     </ol>
   </section>
 
-  <section class="wrap section">
-    <p class="eyebrow">What it looks like</p>
-    <h2>Six screens, and that is most of the app.</h2>
-    <p class="lede">
-      One table, one theme, and no second screen doing the same job as the
-      first.
-    </p>
+  <!-- Features: a bento of eight, two of them wide. -->
+  <section class="wrap section reveal" id="features">
+    <header class="section__head">
+      <p class="eyebrow">Why here</p>
+      <h2>A poker app that stays out of the way.</h2>
+    </header>
 
-    <div class="shots" role="group" aria-label="Screenshots">
-      {shots.map((shot) => <Phone src={shot.src} alt={shot.alt} caption={shot.caption} />)}
-    </div>
-  </section>
-
-  <section class="wrap section">
-    <p class="eyebrow">Why here</p>
-    <h2>A poker app that stays out of the way.</h2>
-
-    <ul class="features">
+    <ul class="bento">
       {
-        features.map((feature) => (
-          <li>
+        features.map((feature, i) => (
+          <li class:list={['bento__cell', feature.wide && 'bento__cell--wide']}>
+            <span class="bento__n">{String(i + 1).padStart(2, '0')}</span>
             <h3>{feature.title}</h3>
             <p>{feature.body}</p>
           </li>
@@ -298,14 +368,17 @@ const schema = [
     </ul>
   </section>
 
-  <section class="wrap section">
-    <p class="eyebrow">Who it is for</p>
-    <h2>Three people it was built for.</h2>
+  <!-- Who it is for: heading left, three columns right. -->
+  <section class="wrap section split reveal">
+    <header class="section__head split__head">
+      <p class="eyebrow">Who it is for</p>
+      <h2>Three people it was built for.</h2>
+    </header>
 
     <div class="audiences">
       {
         audiences.map((audience) => (
-          <div>
+          <div class="audience">
             <h3>{audience.title}</h3>
             <p>{audience.body}</p>
           </div>
@@ -314,18 +387,21 @@ const schema = [
     </div>
   </section>
 
-  <section class="wrap section">
-    <p class="eyebrow">Plans</p>
-    <h2>Free to play, with an optional Plus subscription.</h2>
-    <p class="lede">
-      Prices are set per country and shown in your own currency in the
-      app&rsquo;s Shop tab, so they are not printed here.
-    </p>
+  <!-- Plans: no prices, by rule. -->
+  <section class="wrap section reveal" id="plans">
+    <header class="section__head">
+      <p class="eyebrow">Plans</p>
+      <h2>Free to play, with an optional Plus subscription.</h2>
+      <p class="lede">
+        Prices are set per country and shown in your own currency in the
+        app&rsquo;s Shop tab, so they are not printed here.
+      </p>
+    </header>
 
     <div class="plans">
       <div class="plan">
-        <h3>Free</h3>
-        <p class="plan__note">Everything on this page.</p>
+        <p class="eyebrow">Free</p>
+        <h3>Everything on this page.</h3>
         <ul>
           <li>Offline cash games, six-max or heads-up, at every level your bank covers</li>
           <li>Sit &amp; Go tournaments, Standard and High Roller</li>
@@ -337,18 +413,20 @@ const schema = [
       </div>
 
       <div class="plan plan--featured">
-        <h3>Plus</h3>
+        <ChipMark size={220} class="plan__mark" />
+        <p class="eyebrow">Plus</p>
+        <h3>More chips a day, every table colour.</h3>
         <p class="plan__note">Monthly or yearly. Cancel in Settings, as with any subscription.</p>
         <ul>
           <li>A larger daily chip reward, on top of the standard one</li>
           <li>Every card back and table colour, while you subscribe</li>
-          <li>Nothing that changes a hand &mdash; everyone gets a private room, Plus or not</li>
+          <li>Nothing that changes a hand. Everyone gets a private room, Plus or not</li>
         </ul>
       </div>
 
       <div class="plan">
-        <h3>Chip packs</h3>
-        <p class="plan__note">One-off, for when the bank runs dry.</p>
+        <p class="eyebrow">Chip packs</p>
+        <h3>One-off, for when the bank runs dry.</h3>
         <ul>
           <li>Six sizes, bought once</li>
           <li>Play chips never expire</li>
@@ -358,9 +436,16 @@ const schema = [
     </div>
   </section>
 
-  <section class="wrap section">
-    <p class="eyebrow">Questions</p>
-    <h2>Asked often enough to answer here.</h2>
+  <!-- Questions: heading left, answers right. -->
+  <section class="wrap section split reveal" id="faq">
+    <header class="section__head split__head">
+      <p class="eyebrow">Questions</p>
+      <h2>Asked often enough to answer here.</h2>
+      <p class="lede">
+        Anything else: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>, or
+        the <a href="/support">support page</a>.
+      </p>
+    </header>
 
     <div class="faq">
       {
@@ -376,33 +461,66 @@ const schema = [
     </div>
   </section>
 
-  <section class="wrap section">
-    <div class="note">
-      <h2>Play chips, and only play chips.</h2>
-      <p>
-        The chips in Quiet Poker have no cash value. They cannot be bought back,
-        cashed out, transferred to another player, or wagered on anything. A
-        chip pack buys chips to keep playing with, the way a level pack buys
-        levels &mdash; not a stake and not a balance.
-      </p>
-      <p>
-        Nothing here prepares you to gamble for money, and it is not meant to.
-      </p>
-      <p class="note__contact">
-        Anything else: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>, or
-        the <a href="/support">support page</a>.
-      </p>
+  <!-- The felt: the closing statement sits on the table itself. -->
+  <section class="wrap section reveal">
+    <div class="felt">
+      <div class="felt__copy">
+        <p class="eyebrow">Play chips, and only play chips</p>
+        <h2>Nothing to cash out. Nothing to win. Just poker, at your own pace.</h2>
+        <p>
+          The chips in Quiet Poker have no cash value. They cannot be bought
+          back, cashed out, transferred to another player, or wagered on
+          anything. Nothing here prepares you to gamble for money, and it is
+          not meant to.
+        </p>
+        {
+          appStoreUrl ? (
+            <a class="btn btn--primary" href={appStoreUrl}>Download on the App Store</a>
+          ) : (
+            <span class="btn btn--pending"><ChipMark size={18} /> Coming to the App Store</span>
+          )
+        }
+      </div>
+      <div class="felt__cards" aria-hidden="true">
+        <Card rank="10" suit="spades" class="felt__card" />
+        <Card rank="J" suit="diamonds" class="felt__card" />
+        <Card rank="Q" suit="clubs" class="felt__card" />
+        <Card rank="K" suit="hearts" class="felt__card" />
+        <Card rank="A" suit="spades" class="felt__card" />
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
   .section {
-    margin-top: 5.5rem;
+    margin-top: var(--section);
   }
 
+  .section__head {
+    max-width: 44rem;
+  }
+
+  /* ---- Hero ------------------------------------------------------------ */
+
   .hero {
-    padding-block: clamp(3rem, 8vw, 6rem) 0;
+    position: relative;
+    padding-top: clamp(3rem, 9vw, 7rem);
+    isolation: isolate;
+  }
+
+  /* One soft studio light from above, falling on the table. Monochrome: the
+     brand has no colour to lean on, so the depth has to come from light. */
+  .hero__light {
+    position: absolute;
+    inset: -20% -10% auto;
+    height: 120%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 45% at 68% 30%, rgb(242 244 247 / 0.11), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 10%, rgb(242 244 247 / 0.04), transparent 70%);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
 
   .hero__inner {
@@ -411,173 +529,444 @@ const schema = [
     align-items: center;
   }
 
-  @media (min-width: 820px) {
+  @media (min-width: 880px) {
     .hero__inner {
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     }
   }
 
+  /* Sized to the copy column rather than the viewport, so the second line
+     stays one line on a laptop instead of breaking into a fourth. */
+  .hero h1 {
+    font-size: clamp(2.5rem, 1rem + 4vw, 4.25rem);
+  }
+
   .hero__copy > * + * {
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
   }
 
-  .hero__shot {
-    justify-self: center;
+  .hero__copy .lede {
+    max-width: 36rem;
   }
 
-  .hero__points {
-    list-style: none;
-    padding: 0;
+  .hero__soft {
+    display: block;
+    color: var(--muted);
+  }
+
+  .hero__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    color: var(--muted);
-    font-size: 0.9375rem;
+    gap: 0.75rem;
+    margin-top: 2rem;
   }
 
-  .hero__points li::before {
-    content: '\2713';
-    color: var(--accent);
-    margin-right: 0.45rem;
+  /* The phone stands slightly turned, as a product in a studio does, with two
+     cards left on the table behind it. On narrow screens it faces the reader
+     and the cards tuck in closer. */
+  .hero__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding-block: 2rem 3rem;
+    perspective: 1600px;
   }
 
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--cta);
-    color: var(--cta-on);
+  .hero__stage :global(.hero__phone) {
+    position: relative;
+    z-index: 2;
+    transform: rotateY(-12deg) rotateX(4deg) rotateZ(1deg);
+    transform-origin: 50% 60%;
+    filter: drop-shadow(0 40px 60px rgb(0 0 0 / 0.6));
+  }
+
+  .hero__stage :global(.hero__card) {
+    position: absolute;
+    z-index: 1;
+    --card-w: clamp(4.4rem, 7.5vw, 6.5rem);
+  }
+
+  .hero__stage :global(.hero__card--a) {
+    left: 8%;
+    bottom: 12%;
+    transform: rotate(-16deg);
+  }
+
+  .hero__stage :global(.hero__card--k) {
+    right: 6%;
+    top: 8%;
+    transform: rotate(13deg);
+    z-index: 3;
+  }
+
+  @media (max-width: 879px) {
+    .hero__stage :global(.hero__phone) {
+      transform: none;
+    }
+    .hero__stage :global(.hero__card--a) { left: 3%; }
+    .hero__stage :global(.hero__card--k) { right: 5%; }
+  }
+
+  /* The facts strip: the dealer's plate under the table. */
+  .facts {
+    margin: clamp(2rem, 5vw, 4rem) 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  @media (min-width: 720px) {
+    .facts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .facts__item {
+    padding: 1.25rem 1rem 1.25rem 0;
+    border-right: 1px solid var(--border-soft);
+  }
+
+  .facts__item:nth-child(even) {
+    padding-left: 1.25rem;
+    border-right: 0;
+  }
+
+  @media (min-width: 720px) {
+    .facts__item {
+      padding-inline: 1.5rem;
+    }
+    .facts__item:first-child { padding-left: 0; }
+    .facts__item:nth-child(even) { border-right: 1px solid var(--border-soft); }
+    .facts__item:last-child { border-right: 0; }
+  }
+
+  .facts dd {
+    margin: 0.35rem 0 0;
+    font-size: var(--step-1);
     font-weight: 600;
-    padding: 0.85rem 1.4rem;
-    border-radius: 999px;
-    text-decoration: none;
-    min-height: 52px;
+    letter-spacing: -0.02em;
   }
 
-  /* Until there is a listing, this is a statement rather than a button: it is
-     not a link, it does not look pressable, and there is nothing to 404. */
-  .cta--pending {
-    background: var(--elevated);
-    color: var(--muted);
-    border: 1px solid var(--border);
-    font-weight: 500;
+  /* ---- Scenes ---------------------------------------------------------- */
+
+  .scenes {
+    display: grid;
+    gap: clamp(4rem, 9vw, 7rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
   }
+
+  .scene {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 820px) {
+    .scene {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .scene--flip .scene__stage {
+      order: -1;
+    }
+  }
+
+  .scene__copy > * + * {
+    margin-top: 1rem;
+  }
+
+  .scene__copy h3 {
+    font-size: var(--step-3);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+
+  .scene__body {
+    color: var(--muted);
+    max-width: var(--measure);
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .scene__points {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .scene__points li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    color: var(--text);
+  }
+
+  .scene__points li::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--accent);
+    translate: 0 -0.1rem;
+  }
+
+  /* Two devices on one small stage: the front one down-left, the second
+     behind it up-right, the way two phones lie on a desk. The stage keeps its
+     own proportion so the pair scales as one object. */
+  .scene__stage {
+    position: relative;
+    /* Tall enough to hold the front device in full: it is 54% of the stage
+       wide and about twice as tall as it is wide. */
+    aspect-ratio: 1 / 1.16;
+    width: min(100%, 32rem);
+    margin-inline: auto;
+  }
+
+  .scene__stage::before {
+    content: '';
+    position: absolute;
+    inset: 12% 4%;
+    border-radius: var(--radius-felt);
+    background: radial-gradient(ellipse at 50% 30%, rgb(242 244 247 / 0.06), transparent 70%);
+    pointer-events: none;
+  }
+
+  .scene__stage :global(.scene__phone) {
+    position: absolute;
+  }
+
+  .scene__stage :global(.scene__phone--front) {
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  .scene__stage :global(.scene__phone--back) {
+    right: 0;
+    top: 0;
+    z-index: 1;
+    opacity: 0.94;
+  }
+
+  /* ---- Steps ----------------------------------------------------------- */
 
   .steps {
     list-style: none;
-    counter-reset: none;
     padding: 0;
-    margin: 2.5rem 0 0;
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
     display: grid;
-    gap: 1.5rem;
+    gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .steps li {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
   }
 
   .steps__n {
     display: block;
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     color: var(--accent);
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.25rem;
   }
 
   .steps p {
-    margin-top: 0.6rem;
+    margin-top: 0.75rem;
     color: var(--muted);
   }
 
-  .shots {
-    display: flex;
-    gap: 1.75rem;
-    margin-top: 2.5rem;
-    overflow-x: auto;
-    /* Proximity, not mandatory, and scroll-padding matching the inline padding.
-       Mandatory snapping resolves on load against the first item's snap point,
-       which sits after the padding — the row arrived already scrolled past its
-       own left inset, flush to the viewport edge. */
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--page)) / 2));
-    /* Bleeds to the viewport edge rather than stopping at the page column:
-       clipped flush against the column, a scroller looks like a broken grid. */
-    padding-inline: max(var(--gutter), calc((100vw - var(--page)) / 2));
-    margin-inline: calc(50% - 50vw);
-    width: 100vw;
-    padding-bottom: 1rem;
-    scrollbar-width: thin;
-  }
+  /* ---- Bento ----------------------------------------------------------- */
 
-  .shots > :global(.phone) {
-    scroll-snap-align: start;
-  }
-
-  .features {
+  .bento {
     list-style: none;
     padding: 0;
-    margin: 2.5rem 0 0;
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 1px;
+    background: var(--border-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
   }
 
-  .features li {
+  @media (min-width: 720px) {
+    .bento {
+      grid-template-columns: repeat(12, 1fr);
+    }
+    /* One row of two halves, then two rows of thirds. */
+    .bento__cell { grid-column: span 4; }
+    .bento__cell--wide { grid-column: span 6; }
+  }
+
+  .bento__cell {
+    position: relative;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    transition: background-color 200ms ease;
   }
 
-  .features p,
-  .audiences p {
-    margin-top: 0.6rem;
+  .bento__cell:hover {
+    background: var(--elevated);
+  }
+
+  .bento__n {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
     color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .bento__cell h3 {
+    font-size: var(--step-1);
+    letter-spacing: -0.015em;
+  }
+
+  .bento__cell p {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  .bento__cell--wide h3 {
+    font-size: var(--step-2);
+  }
+
+  .bento__cell--wide p {
+    font-size: var(--step-0);
+    max-width: 30rem;
+  }
+
+  /* ---- Split sections -------------------------------------------------- */
+
+  @media (min-width: 880px) {
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: start;
+    }
+    .split__head {
+      position: sticky;
+      top: 6rem;
+    }
   }
 
   .audiences {
     display: grid;
     gap: 2rem;
     margin-top: 2.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   }
+
+  @media (min-width: 880px) {
+    .audiences { margin-top: 0; }
+  }
+
+  .audience {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+
+  .audience h3 {
+    font-size: var(--step-2);
+  }
+
+  .audience p {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    max-width: var(--measure);
+  }
+
+  /* ---- Plans ----------------------------------------------------------- */
 
   .plans {
     display: grid;
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   }
 
   .plan {
+    position: relative;
+    overflow: hidden;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.75rem;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: clamp(1.75rem, 3vw, 2.25rem);
+  }
+
+  .plan h3 {
+    margin-top: 1rem;
+    font-size: var(--step-2);
   }
 
   .plan--featured {
-    border-color: var(--accent);
+    border-color: var(--border);
+    background:
+      radial-gradient(ellipse at 100% 0%, rgb(242 244 247 / 0.08), transparent 55%),
+      var(--surface);
+  }
+
+  .plan--featured .eyebrow {
+    color: var(--text);
+  }
+
+  .plan :global(.plan__mark) {
+    position: absolute;
+    right: -3.5rem;
+    bottom: -4rem;
+    opacity: 0.06;
+    pointer-events: none;
   }
 
   .plan__note {
     color: var(--muted);
-    font-size: 0.9375rem;
-    margin-top: 0.4rem;
+    font-size: var(--step--1);
+    margin-top: 0.6rem;
   }
 
   .plan ul {
-    margin: 1.25rem 0 0;
-    padding-left: 1.1rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
     color: var(--muted);
+    display: grid;
+    gap: 0.6rem;
   }
 
   .plan li {
-    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
   }
+
+  .plan li::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--accent);
+    translate: 0 -0.1rem;
+  }
+
+  /* ---- FAQ ------------------------------------------------------------- */
 
   .faq {
     margin-top: 2.5rem;
     border-top: 1px solid var(--border);
-    max-width: 48rem;
+  }
+
+  @media (min-width: 880px) {
+    .faq { margin-top: 0; }
   }
 
   .faq details {
@@ -586,7 +975,7 @@ const schema = [
 
   .faq summary {
     cursor: pointer;
-    padding: 1.1rem 2rem 1.1rem 0;
+    padding: 1.25rem 2.5rem 1.25rem 0;
     position: relative;
     list-style: none;
   }
@@ -597,8 +986,9 @@ const schema = [
 
   .faq summary h3 {
     display: inline;
-    font-size: var(--step-0);
+    font-size: var(--step-1);
     font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   .faq summary::after {
@@ -608,34 +998,79 @@ const schema = [
     top: 50%;
     translate: 0 -50%;
     color: var(--muted);
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 300;
     line-height: 1;
+    transition: rotate 200ms ease;
   }
 
   .faq details[open] summary::after {
-    content: '\2212';
+    rotate: 45deg;
   }
 
   .faq p {
     color: var(--muted);
-    padding-bottom: 1.25rem;
-    max-width: var(--measure);
+    padding-bottom: 1.5rem;
+    max-width: 40rem;
   }
 
-  .note {
-    background: var(--surface);
+  /* ---- The felt -------------------------------------------------------- */
+
+  .felt {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-felt);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgb(242 244 247 / 0.09), transparent 70%),
+      var(--surface);
+    padding: clamp(2.5rem, 6vw, 5rem);
+    display: grid;
+    gap: 3rem;
   }
 
-  .note p {
+  @media (min-width: 880px) {
+    .felt {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+
+  .felt__copy > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .felt__copy h2 {
+    font-size: var(--step-3);
+  }
+
+  .felt__copy p:not(.eyebrow) {
     color: var(--muted);
     max-width: var(--measure);
-    margin-top: 1rem;
   }
 
-  .note__contact {
-    color: var(--text);
+  .felt__copy .btn {
+    margin-top: 2rem;
   }
+
+  /* A royal flush fanned on the table: five cards, each turned a little more
+     than the last. */
+  .felt__cards {
+    position: relative;
+    height: clamp(9rem, 18vw, 14rem);
+    --card-w: clamp(4.5rem, 8vw, 6.5rem);
+  }
+
+  .felt__cards :global(.felt__card) {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform-origin: 50% 120%;
+  }
+
+  .felt__cards :global(.felt__card:nth-child(1)) { transform: translateX(-50%) rotate(-28deg); }
+  .felt__cards :global(.felt__card:nth-child(2)) { transform: translateX(-50%) rotate(-14deg); }
+  .felt__cards :global(.felt__card:nth-child(3)) { transform: translateX(-50%) rotate(0deg); }
+  .felt__cards :global(.felt__card:nth-child(4)) { transform: translateX(-50%) rotate(14deg); }
+  .felt__cards :global(.felt__card:nth-child(5)) { transform: translateX(-50%) rotate(28deg); }
 </style>

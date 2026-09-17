@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import ChipMark from '../components/ChipMark.astro';
-import { appStoreId } from '../config';
+import { appStoreId, appStoreUrl } from '../config';
 
 interface Props {
   title: string;
@@ -74,10 +74,19 @@ const year = new Date().getFullYear();
           <ChipMark size={26} />
           <span>Quiet Poker</span>
         </a>
-        <nav aria-label="Legal and support">
+        <nav aria-label="Site">
+          <a href="/#screens">The app</a>
+          <a href="/#plans">Plans</a>
           <a href="/support">Support</a>
           <a href="/privacy">Privacy</a>
         </nav>
+        {
+          appStoreUrl ? (
+            <a class="site-header__cta" href={appStoreUrl}>App Store</a>
+          ) : (
+            <span class="site-header__cta site-header__cta--pending">Coming soon</span>
+          )
+        }
       </div>
     </header>
 
@@ -86,14 +95,32 @@ const year = new Date().getFullYear();
     </main>
 
     <footer class="site-footer">
-      <div class="wrap">
+      <div class="wrap site-footer__grid">
+        <div class="site-footer__brand">
+          <a class="brand" href="/">
+            <ChipMark size={30} />
+            <span>Quiet Poker</span>
+          </a>
+          <p class="site-footer__tag">Texas Hold&rsquo;em practice for iPhone and iPad. Play chips only.</p>
+        </div>
+
         <nav class="site-footer__links" aria-label="Footer">
+          <p class="eyebrow">Site</p>
           <a href="/">Home</a>
+          <a href="/#screens">The app</a>
+          <a href="/#plans">Plans</a>
+          <a href="/#faq">Questions</a>
+        </nav>
+
+        <nav class="site-footer__links" aria-label="Legal and support">
+          <p class="eyebrow">Help</p>
           <a href="/support">Support</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
         </nav>
+      </div>
 
+      <div class="wrap site-footer__bottom">
         <!-- These three lines are required and must not be softened. They are
              the same words that go to App Store review. -->
         <p class="site-footer__legal">
@@ -112,77 +139,140 @@ const year = new Date().getFullYear();
 
     <style>
       .site-header {
-        border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
-        background: color-mix(in srgb, var(--bg) 88%, transparent);
-        backdrop-filter: blur(12px);
         z-index: 5;
+        background: color-mix(in srgb, var(--bg) 72%, transparent);
+        backdrop-filter: blur(16px) saturate(1.2);
+        -webkit-backdrop-filter: blur(16px) saturate(1.2);
+        border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
       }
 
       .site-header__inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1rem;
-        min-height: 60px;
+        gap: 1.5rem;
+        min-height: 64px;
       }
 
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.65rem;
         font-weight: 600;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
         text-decoration: none;
+        font-size: 1.0625rem;
       }
 
       .site-header nav {
-        display: flex;
-        gap: 1.25rem;
+        display: none;
+        gap: 1.75rem;
         font-size: 0.9375rem;
         color: var(--muted);
       }
 
+      @media (min-width: 720px) {
+        .site-header nav {
+          display: flex;
+        }
+      }
+
       .site-header nav a {
         text-decoration: none;
+        transition: color 140ms ease;
       }
 
       .site-header nav a:hover {
         color: var(--text);
       }
 
+      .site-header__cta {
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.5rem 0.95rem;
+        border-radius: 999px;
+        text-decoration: none;
+        background: var(--cta);
+        color: var(--cta-on);
+        white-space: nowrap;
+      }
+
+      .site-header__cta--pending {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        font-weight: 500;
+      }
+
       .site-footer {
-        border-top: 1px solid var(--border);
-        margin-top: 5rem;
-        padding: 2.5rem 0 3.5rem;
+        border-top: 1px solid var(--border-soft);
+        margin-top: var(--section);
+        padding: 3.5rem 0 3rem;
         color: var(--muted);
         font-size: 0.875rem;
       }
 
+      .site-footer__grid {
+        display: grid;
+        gap: 2.5rem;
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 720px) {
+        .site-footer__grid {
+          grid-template-columns: 1.6fr 1fr 1fr;
+        }
+      }
+
+      .site-footer__brand .brand {
+        color: var(--text);
+      }
+
+      .site-footer__tag {
+        margin-top: 1rem;
+        max-width: 22rem;
+      }
+
       .site-footer__links {
         display: flex;
-        flex-wrap: wrap;
-        gap: 1.25rem;
-        margin-bottom: 1.5rem;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+
+      .site-footer__links .eyebrow {
+        margin-bottom: 0.4rem;
       }
 
       .site-footer__links a {
         text-decoration: none;
         color: var(--text);
+        width: fit-content;
+      }
+
+      .site-footer__links a:hover {
+        color: var(--accent);
+      }
+
+      .site-footer__bottom {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-soft);
       }
 
       .site-footer__legal {
-        max-width: 46rem;
+        max-width: 52rem;
         margin-bottom: 0.75rem;
         text-wrap: pretty;
+        font-size: 0.8125rem;
       }
 
       /* Prose pages: privacy, terms, support. One column, generous rhythm. */
       :global(main.prose) {
         width: min(100% - (var(--gutter) * 2), 44rem);
         margin-inline: auto;
-        padding-block: 3rem 1rem;
+        padding-block: clamp(3rem, 8vw, 5rem) 1rem;
       }
 
       :global(main.prose h1) {

@@ -1,0 +1,78 @@
+---
+/* A playing card drawn in CSS. Decoration for the front page, so a screen
+   reader is told nothing about it. Hearts and diamonds are the one place on
+   the site that is allowed to be red. */
+interface Props {
+  rank: string;
+  suit: 'spades' | 'hearts' | 'diamonds' | 'clubs';
+  class?: string;
+}
+
+const glyph = { spades: '♠', hearts: '♥', diamonds: '♦', clubs: '♣' };
+const { rank, suit, class: className } = Astro.props;
+const red = suit === 'hearts' || suit === 'diamonds';
+---
+
+<div class:list={['card', red && 'card--red', className]} aria-hidden="true">
+  <span class="card__corner">{rank}<i>{glyph[suit]}</i></span>
+  <span class="card__pip">{glyph[suit]}</span>
+  <span class="card__corner card__corner--flip">{rank}<i>{glyph[suit]}</i></span>
+</div>
+
+<style>
+  .card {
+    --ink: #14161a;
+    position: relative;
+    aspect-ratio: 5 / 7;
+    width: var(--card-w, 5rem);
+    border-radius: 8% / 5.7%;
+    background: linear-gradient(160deg, #fbfbf9 0%, #eef0f2 100%);
+    color: var(--ink);
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.5),
+      0 1.5rem 3rem -1rem rgb(0 0 0 / 0.8),
+      inset 0 1px 0 rgb(255 255 255 / 0.9);
+    container-type: inline-size;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .card--red {
+    --ink: var(--suit-red);
+  }
+
+  .card__corner {
+    position: absolute;
+    top: 6cqw;
+    left: 8cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.95;
+    font-size: 20cqw;
+    letter-spacing: -0.04em;
+  }
+
+  .card__corner i {
+    font-style: normal;
+    font-size: 15cqw;
+  }
+
+  .card__corner--flip {
+    top: auto;
+    left: auto;
+    right: 8cqw;
+    bottom: 6cqw;
+    transform: rotate(180deg);
+  }
+
+  .card__pip {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 48cqw;
+    line-height: 1;
+  }
+</style>

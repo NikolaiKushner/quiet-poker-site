@@ -6,6 +6,7 @@
   --surface: #12151a;
   --elevated: #1a1e26;
   --border: #2a303a;
+  --border-soft: #1d2229;
   --text: #f2f4f7;
   --muted: #8b93a1;
   --accent: #c8ced6;
@@ -18,13 +19,25 @@
   --light-bg: #f2f4f7;
   --ink: #1a1f1d;
 
-  --measure: 34rem;
-  --page: 64rem;
-  --gutter: 1.25rem;
+  /* The felt in the app is a rounded rectangle of radius 40 with a soft
+     stroke. Panels here use the same radius so the site and the table rhyme. */
+  --radius-felt: 40px;
+  --radius: 20px;
+  --radius-sm: 12px;
 
+  --measure: 34rem;
+  --page: 72rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section: clamp(5rem, 11vw, 9rem);
+
+  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  --step--1: 0.875rem;
   --step-0: 1rem;
   --step-1: 1.125rem;
   --step-2: clamp(1.35rem, 1.1rem + 1.2vw, 1.75rem);
-  --step-3: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem);
-  --step-4: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+  --step-3: clamp(1.9rem, 1.3rem + 2.6vw, 3rem);
+  --step-4: clamp(2.5rem, 1.3rem + 4.6vw, 4.75rem);
 }
