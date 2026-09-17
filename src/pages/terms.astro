@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import { appleEulaUrl, supportEmail } from '../config';
+---
+
+<Base
+  title="Quiet Poker — Terms of Use"
+  description="The terms that apply to Quiet Poker: Apple's standard licence agreement, plus what the play chips are and are not."
+  prose
+>
+  <h1>Terms of Use</h1>
+
+  <p>
+    Quiet Poker is licensed, not sold, under Apple&rsquo;s
+    <a href={appleEulaUrl}>Licensed Application End User License Agreement</a>,
+    the standard agreement that applies to apps downloaded from the App Store.
+    Downloading or using the app means accepting it.
+  </p>
+
+  <p>
+    There is no second agreement. The notes below describe the app; where they
+    could ever be read as conflicting with Apple&rsquo;s agreement, Apple&rsquo;s
+    agreement is what applies.
+  </p>
+
+  <h2>What the chips are</h2>
+  <p>
+    The chips in Quiet Poker are play chips. They have no cash value and no
+    value of any kind outside the app. They cannot be cashed out, sold,
+    redeemed, exchanged, transferred to another player, or wagered on anything.
+    Buying a chip pack buys chips to keep playing with; it does not buy a stake,
+    a balance, or a claim on anything.
+  </p>
+
+  <p>
+    This game is intended for an adult audience. This game does not offer
+    real-money gambling or an opportunity to win real money or prizes. Practice
+    or success in this game does not imply future success at real-money
+    gambling.
+  </p>
+
+  <h2>Purchases</h2>
+  <p>
+    Chip packs and the Plus subscription are sold by Apple through the App
+    Store, in your own currency, at the price shown in the app&rsquo;s Shop tab
+    at the time of purchase. Payment, refunds, billing questions and
+    cancellation are handled by Apple under the terms of your App Store account.
+  </p>
+
+  <p>
+    A Plus subscription renews until you cancel it. Cancel from Settings on your
+    iPhone, or from Manage subscription in the Shop tab. Cancelling stops the
+    next renewal; the paid period you are in runs to its end.
+  </p>
+
+  <p>
+    Chips already credited stay credited. Chips are not refundable by us,
+    because we never took the payment &mdash; a refund is a matter between you
+    and Apple.
+  </p>
+
+  <h2>Fair play</h2>
+  <p>
+    Online tables rely on every seat running an unmodified copy of the app. An
+    account used to tamper with results, to automate play, or to disrupt other
+    players&rsquo; games may lose access to online play.
+  </p>
+
+  <h2>Your account</h2>
+  <p>
+    You can play offline without an account. If you sign in with Apple, you can
+    delete the account and its chips from the Profile tab at any time. What that
+    removes is described in the <a href="/privacy">Privacy Policy</a>.
+  </p>
+
+  <h2>The app is provided as it is</h2>
+  <p>
+    Quiet Poker is provided without warranty of any kind, to the extent the law
+    allows. It is a game; it is not advice, and nothing in it is a prediction of
+    anything outside it.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    Write to <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.
+  </p>
+</Base>

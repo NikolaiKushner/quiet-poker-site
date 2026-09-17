@@ -1,0 +1,30 @@
+/* The app's brand tokens, from docs/brand/tokens.json in the app repository.
+   Copied rather than imported: the site should not break because that file
+   moved. If a colour changes there, change it here in the same commit. */
+:root {
+  --bg: #0b0d10;
+  --surface: #12151a;
+  --elevated: #1a1e26;
+  --border: #2a303a;
+  --text: #f2f4f7;
+  --muted: #8b93a1;
+  --accent: #c8ced6;
+  --cta: #f2f4f7;
+  --cta-on: #0b0d10;
+  --suit-red: #c23b3b;
+
+  /* The app is dark and the site follows it. These are here for the one place
+     the brand goes light — the lockup swap — and for print. */
+  --light-bg: #f2f4f7;
+  --ink: #1a1f1d;
+
+  --measure: 34rem;
+  --page: 64rem;
+  --gutter: 1.25rem;
+
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: clamp(1.35rem, 1.1rem + 1.2vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem);
+  --step-4: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+}

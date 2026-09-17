@@ -1,0 +1,195 @@
+---
+import '../styles/global.css';
+import ChipMark from '../components/ChipMark.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Pages that are mostly prose get a narrower column and a heading rhythm. */
+  prose?: boolean;
+}
+
+const { title, description, prose = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0B0D10" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Quiet Poker" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a class="brand" href="/">
+          <ChipMark size={26} />
+          <span>Quiet Poker</span>
+        </a>
+        <nav aria-label="Legal and support">
+          <a href="/support">Support</a>
+          <a href="/privacy">Privacy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class={prose ? 'prose' : undefined}>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav class="site-footer__links" aria-label="Footer">
+          <a href="/">Home</a>
+          <a href="/support">Support</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </nav>
+
+        <!-- These three lines are required and must not be softened. They are
+             the same words that go to App Store review. -->
+        <p class="site-footer__legal">
+          This game is intended for an adult audience. This game does not offer
+          real-money gambling or an opportunity to win real money or prizes.
+          Practice or success in this game does not imply future success at
+          real-money gambling.
+        </p>
+
+        <p class="site-footer__legal">
+          &copy; {year} Nikolai Kushner. Quiet Poker and the chip mark are
+          trademarks of Nikolai Kushner. Not affiliated with Apple Inc.
+        </p>
+      </div>
+    </footer>
+
+    <style>
+      .site-header {
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(12px);
+        z-index: 5;
+      }
+
+      .site-header__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: 60px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+      }
+
+      .site-header nav {
+        display: flex;
+        gap: 1.25rem;
+        font-size: 0.9375rem;
+        color: var(--muted);
+      }
+
+      .site-header nav a {
+        text-decoration: none;
+      }
+
+      .site-header nav a:hover {
+        color: var(--text);
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--border);
+        margin-top: 5rem;
+        padding: 2.5rem 0 3.5rem;
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+
+      .site-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .site-footer__links a {
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .site-footer__legal {
+        max-width: 46rem;
+        margin-bottom: 0.75rem;
+        text-wrap: pretty;
+      }
+
+      /* Prose pages: privacy, terms, support. One column, generous rhythm. */
+      :global(main.prose) {
+        width: min(100% - (var(--gutter) * 2), 44rem);
+        margin-inline: auto;
+        padding-block: 3rem 1rem;
+      }
+
+      :global(main.prose h1) {
+        font-size: var(--step-3);
+      }
+
+      :global(main.prose h2) {
+        font-size: var(--step-2);
+        margin-top: 2.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      :global(main.prose h3) {
+        font-size: var(--step-1);
+        margin-top: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      :global(main.prose p),
+      :global(main.prose ul),
+      :global(main.prose ol) {
+        margin-block: 0 1rem;
+      }
+
+      :global(main.prose li) {
+        margin-bottom: 0.5rem;
+      }
+
+      :global(main.prose ul),
+      :global(main.prose ol) {
+        padding-left: 1.25rem;
+      }
+
+      :global(main.prose strong) {
+        color: var(--text);
+        font-weight: 600;
+      }
+    </style>
+  </body>
+</html>

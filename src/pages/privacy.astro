@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+
+/* The text here is the policy that was served from the app server until this
+   page replaced it, word for word, at the same URL — the one in the app binary
+   and in App Store Connect. Change the date at the top whenever the text
+   changes; the policy itself says that is how a change is announced. */
+const lastUpdated = '16 September 2026';
+---
+
+<Base
+  title="Quiet Poker — Privacy Policy"
+  description="What Quiet Poker holds about you, what it does not, and what stays on your iPhone."
+  prose
+>
+  <h1>Quiet Poker &mdash; Privacy Policy</h1>
+  <p class="updated">Last updated {lastUpdated}</p>
+
+  <p>
+    Quiet Poker is a play-money poker practice app. The chips in it have no cash
+    value, cannot be cashed out, and cannot be wagered. This policy describes
+    what the app and its server hold about you, and what they do not.
+  </p>
+
+  <h2>What we do not do</h2>
+  <ul>
+    <li>
+      We do not track you, and we do not share anything with advertisers or data
+      brokers. The app contains no advertising or analytics software from
+      anyone.
+    </li>
+    <li>
+      We do not ask for your location, contacts, photos, microphone, camera, or
+      health data, and the app cannot read them.
+    </li>
+    <li>
+      We never receive your card or payment details. Apple handles payment and
+      tells us only that a purchase happened.
+    </li>
+  </ul>
+
+  <h2>What we hold</h2>
+  <p>
+    <strong>Your account.</strong> If you sign in with Apple, we store the
+    identifier Apple gives us for you, and your email address if you chose to
+    share it rather than hide it. This is what lets your chips and your
+    subscription follow you to another device. You can play offline without
+    signing in, and then we hold nothing about you at all.
+  </p>
+
+  <p>
+    <strong>Purchases and subscription.</strong> When you buy chips or subscribe,
+    we store the App Store transaction identifier, which product it was, whether
+    it came from the sandbox or production, when it happened, and how many play
+    chips it credited. We keep the state of your subscription and when its paid
+    period ends. We need these to give you what you paid for and to make sure a
+    purchase is never credited twice.
+  </p>
+
+  <p>
+    <strong>Your chips.</strong> We keep your play-chip balance and a record of
+    the transfers that produced it &mdash; purchases, daily rewards, and the
+    results of hands you played online.
+  </p>
+
+  <p>
+    <strong>Online games.</strong> While you play in a private room we store the
+    room, who is seated in it, and the results of the hands, so a disconnection
+    does not cost you your stack. Other players see the name and the avatar you
+    chose, and nothing else about you.
+  </p>
+
+  <p>
+    <strong>Your device.</strong> We use Apple&rsquo;s App Attest to confirm that
+    results sent from a device really came from an unmodified copy of this app.
+    It gives us a key for that device, not an identifier that follows you
+    around.
+  </p>
+
+  <p>
+    <strong>Server logs.</strong> Our server keeps short-lived operational logs
+    to diagnose failures. Room diagnostics are written with player cards and
+    identifiers removed.
+  </p>
+
+  <h2>What stays on your iPhone</h2>
+  <p>
+    Hands you play offline, your hand history, your statistics, and your chosen
+    card back and table colour stay on your device. They are not uploaded.
+  </p>
+
+  <h2>Who else sees it</h2>
+  <p>
+    Apple, because sign-in and payment go through them. Our own hosting
+    provider, because the server runs on their machine. Nobody else. We do not
+    sell anything about you to anyone.
+  </p>
+
+  <h2>How long we keep it</h2>
+  <p>
+    We keep your account and its chip ledger while your account exists. Purchase
+    records are kept as long as required for tax and dispute handling.
+    Operational logs are short-lived.
+  </p>
+
+  <h2>Your choices</h2>
+  <ul>
+    <li>Play without an account: offline play needs no sign-in.</li>
+    <li>Hide your email when you sign in with Apple; we then never see it.</li>
+    <li>
+      Manage or cancel a subscription in the App Store, from Settings on your
+      iPhone or from the Shop tab in the app.
+    </li>
+    <li>Ask for your data or its deletion using the contact address below.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>
+    Quiet Poker is not directed at children, and we do not knowingly collect
+    anything about them.
+  </p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the date at the top changes with it.</p>
+
+  <h2>Contact</h2>
+  <p>Write to <a href="mailto:support@quietpoker.app">support@quietpoker.app</a>.</p>
+</Base>
+
+<style>
+  .updated {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+  }
+</style>

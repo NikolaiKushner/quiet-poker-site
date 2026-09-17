@@ -1,3 +1,340 @@
 ---
+import Base from '../layouts/Base.astro';
+import Phone from '../components/Phone.astro';
+import ChipMark from '../components/ChipMark.astro';
+import { appStoreUrl } from '../config';
+
+import table from '../assets/screenshots/table.png';
+import lobby from '../assets/screenshots/lobby.png';
+import showdown from '../assets/screenshots/showdown.png';
+import profile from '../assets/screenshots/profile.png';
+import blinds from '../assets/screenshots/blinds.png';
+
+const shots = [
+  {
+    src: lobby,
+    alt: 'The Quiet Poker lobby, offering an offline table against bots, an online table, and outs and pot-odds drills.',
+    caption: 'Pick a table. Offline against bots, or online with friends.',
+  },
+  {
+    src: table,
+    alt: 'A six-handed offline table in portrait, hole cards and the Fold, Check and Raise buttons along the bottom of the screen.',
+    caption: 'Portrait, six-max, everything you tap within one thumb.',
+  },
+  {
+    src: showdown,
+    alt: 'A showdown with the full board dealt and the amount won shown beneath the hole cards.',
+    caption: 'Showdown shows every hand that got there.',
+  },
+  {
+    src: blinds,
+    alt: 'A list of blind levels from 1/2 upward, with buy-ins, and higher levels locked until the bank can cover them.',
+    caption: 'Blind levels unlock as the bank grows.',
+  },
+  {
+    src: profile,
+    alt: 'A profile screen showing hands played, win rate, net result, VPIP, PFR and 3-bet, above a list of recent hands.',
+    caption: 'The numbers, and the hands behind them.',
+  },
+];
+
+const features = [
+  {
+    title: 'Dealt in immediately',
+    body: 'Offline six-max against bots. No lobby to wait in and no table to hunt for. Choose a blind level and the cards are out.',
+  },
+  {
+    title: 'Made for one thumb',
+    body: 'The table is portrait and stays portrait. Fold, Check and Raise sit at the bottom in the same order on every street, so the hand is muscle memory. Swipe up to fold.',
+  },
+  {
+    title: 'Read above, tap below',
+    body: 'The pot, the board and the other seats are things to read, not things to hit. Tap the board when you want the hand guide.',
+  },
+  {
+    title: 'Drills, away from the table',
+    body: 'Count the outs. Call or fold on the number. Short practice for the two decisions that cost the most, without a hand riding on it.',
+  },
+  {
+    title: 'Your own numbers',
+    body: 'Hands, win rate, net, VPIP, PFR and 3-bet, with the recent hands that produced them.',
+  },
+  {
+    title: 'Nothing watching you',
+    body: 'No advertising and no analytics software, from anyone. Nothing about you is sold or shared. Play offline without an account at all.',
+  },
+];
 ---
-<html><body>ok</body></html>
+
+<Base
+  title="Quiet Poker — calm Texas Hold'em practice for iPhone"
+  description="A quiet Texas Hold'em table for iPhone and iPad. Play chips only, offline against bots or online with friends, built to be played with one thumb."
+>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">Texas Hold&rsquo;em &middot; iPhone and iPad</p>
+        <h1>Poker practice, without the noise.</h1>
+        <p class="lede">
+          A calm Hold&rsquo;em table you can play with one thumb. Sit down
+          against bots in a second, or open a private table and send friends
+          the code. Play chips only &mdash; nothing to cash out, and nothing to
+          win.
+        </p>
+
+        {
+          appStoreUrl ? (
+            <a class="cta" href={appStoreUrl}>
+              Download on the App Store
+            </a>
+          ) : (
+            <p class="cta cta--pending">
+              <ChipMark size={18} />
+              Coming to the App Store
+            </p>
+          )
+        }
+      </div>
+
+      <div class="hero__shot">
+        <Phone
+          src={table}
+          alt="A six-handed Quiet Poker table in portrait, with the Fold, Check and Raise buttons along the bottom of the screen."
+          caption=""
+          eager
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <p class="eyebrow">What it looks like</p>
+    <h2>Five screens, and that is most of the app.</h2>
+    <p class="lede">
+      There is one table, one theme, and no second screen doing the same job as
+      the first.
+    </p>
+
+    <div class="shots" role="group" aria-label="Screenshots">
+      {shots.map((shot) => <Phone src={shot.src} alt={shot.alt} caption={shot.caption} />)}
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <p class="eyebrow">Why it is built this way</p>
+    <h2>A table you can play standing on a train.</h2>
+
+    <ul class="features">
+      {
+        features.map((feature) => (
+          <li>
+            <h3>{feature.title}</h3>
+            <p>{feature.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="wrap section">
+    <p class="eyebrow">Plans</p>
+    <h2>Free to play. Plus if you want more of it.</h2>
+    <p class="lede">
+      Prices are set per country and shown in your own currency in the app&rsquo;s
+      Shop tab, so they are not printed here.
+    </p>
+
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <p class="plan__note">Everything on this page.</p>
+        <ul>
+          <li>Offline six-max against bots, at every blind level the bank covers</li>
+          <li>Online tables, including private ones opened with a code</li>
+          <li>The outs and pot-odds drills</li>
+          <li>Your stats and hand history</li>
+          <li>A chip reward every day</li>
+        </ul>
+      </div>
+
+      <div class="plan plan--featured">
+        <h3>Plus</h3>
+        <p class="plan__note">Monthly or yearly. Cancel in Settings, as with any subscription.</p>
+        <ul>
+          <li>A larger daily chip reward, on top of the standard one</li>
+          <li>Card backs and table colours</li>
+          <li>Everything in Free, unchanged</li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <h3>Chip packs</h3>
+        <p class="plan__note">One-off, for when the bank runs dry.</p>
+        <ul>
+          <li>Six sizes, bought once</li>
+          <li>Play chips never expire</li>
+          <li>No subscription needed</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="note">
+      <h2>Play chips, and only play chips.</h2>
+      <p>
+        The chips in Quiet Poker have no cash value. They cannot be bought back,
+        cashed out, transferred to another player, or wagered on anything. A
+        chip pack buys chips to keep playing with, the way a level pack buys
+        levels &mdash; not a stake and not a balance.
+      </p>
+      <p>
+        Nothing here prepares you to gamble for money, and it is not meant to.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .section {
+    margin-top: 5.5rem;
+  }
+
+  .hero {
+    padding-block: clamp(3rem, 8vw, 6rem) 0;
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 820px) {
+    .hero__inner {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .hero__copy > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .hero__shot {
+    justify-self: center;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--cta);
+    color: var(--cta-on);
+    font-weight: 600;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    min-height: 52px;
+  }
+
+  /* Until there is a listing, this is a statement rather than a button: it is
+     not a link, it does not look pressable, and there is nothing to 404. */
+  .cta--pending {
+    background: var(--elevated);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  .shots {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    overflow-x: auto;
+    /* Proximity, not mandatory, and scroll-padding matching the inline padding.
+       Mandatory snapping resolves on load against the first item's snap point,
+       which sits after the padding — the row arrived already scrolled past its
+       own left inset, flush to the viewport edge. */
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--page)) / 2));
+    /* Bleeds to the viewport edge rather than stopping at the page column:
+       clipped flush against the column, a scroller looks like a broken grid. */
+    padding-inline: max(var(--gutter), calc((100vw - var(--page)) / 2));
+    margin-inline: calc(50% - 50vw);
+    width: 100vw;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+
+  .shots > :global(.phone) {
+    scroll-snap-align: start;
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+
+  .features li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+
+  .features p {
+    margin-top: 0.6rem;
+    color: var(--muted);
+  }
+
+  .plans {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .plan {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+
+  .plan--featured {
+    border-color: var(--accent);
+  }
+
+  .plan__note {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    margin-top: 0.4rem;
+  }
+
+  .plan ul {
+    margin: 1.25rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--muted);
+  }
+
+  .plan li {
+    margin-bottom: 0.5rem;
+  }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .note p {
+    color: var(--muted);
+    max-width: var(--measure);
+    margin-top: 1rem;
+  }
+</style>

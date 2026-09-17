@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import { supportEmail } from '../config';
+---
+
+<Base
+  title="Quiet Poker — Support"
+  description="How to get help with Quiet Poker: a purchase that did not arrive, managing a subscription, and deleting your account and its data."
+  prose
+>
+  <h1>Support</h1>
+
+  <p class="lede">
+    One person answers this address. Write in English if you can, and say what
+    the app did and what you expected.
+  </p>
+
+  <p class="contact">
+    <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+  </p>
+
+  <h2>A purchase that has not arrived</h2>
+  <p>Almost always one of these three, in this order:</p>
+  <ol>
+    <li>
+      <strong>Open the Shop tab and tap Restore purchases.</strong> A purchase
+      that completed on another device, or before a reinstall, lands with this.
+    </li>
+    <li>
+      <strong>Check whether it is waiting for approval.</strong> With Ask to Buy,
+      Apple holds the purchase until an approver responds, and the app says so.
+      The chips arrive by themselves once it comes through &mdash; nothing needs
+      doing here.
+    </li>
+    <li>
+      <strong>Write to us.</strong> Include the App Store order ID from the
+      receipt Apple emailed you, the product you bought, and roughly when. That
+      is enough to find the transaction and credit it.
+    </li>
+  </ol>
+
+  <p>
+    Payment itself is Apple&rsquo;s. Refunds are requested through
+    <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>, not
+    through us &mdash; we never take the payment and cannot reverse it.
+  </p>
+
+  <h2>Managing or cancelling Plus</h2>
+  <p>
+    From the app: Shop tab, then <strong>Manage subscription</strong>. From the
+    phone: Settings, your name, then Subscriptions. Cancelling stops the next
+    renewal and leaves the period you have already paid for running to its end.
+  </p>
+
+  <h2 id="delete-account">Deleting your account and its data</h2>
+  <p>
+    In the app: <strong>Profile tab &rarr; Delete account</strong>. It removes
+    the account and its chips for good, and it cannot be undone.
+  </p>
+  <p>
+    The app will refuse while chips of yours are still in play &mdash; stand up
+    from any table you are seated at, and close any private room you opened,
+    then try again. This is so a deletion cannot strand the other players in a
+    hand.
+  </p>
+  <p>
+    If you cannot reach the app for some reason, write to
+    <a href={`mailto:${supportEmail}`}>{supportEmail}</a> from the address on the
+    account and ask for deletion. What is stored in the first place is listed in
+    the <a href="/privacy">Privacy Policy</a>.
+  </p>
+  <p>
+    If you only ever played offline, there is nothing to delete: offline play
+    needs no account and sends nothing to a server. Removing the app removes it.
+  </p>
+
+  <h2>Reporting a bug</h2>
+  <p>Useful in the message, in rough order of usefulness:</p>
+  <ul>
+    <li>What happened, and what you expected instead</li>
+    <li>Whether it was an offline table, an online one, or outside a hand</li>
+    <li>Your iPhone or iPad model and iOS version</li>
+    <li>A screenshot, if the screen showed it</li>
+  </ul>
+
+  <h2>Trouble signing in</h2>
+  <p>
+    Signing in uses Sign in with Apple. If it fails repeatedly, check that
+    you are signed into an Apple Account on the device, and that the date and
+    time are set automatically &mdash; a clock that is far out makes the
+    sign-in fail in a way that looks like a rejection.
+  </p>
+  <p>
+    You do not need an account to play offline. Signing in is what lets chips
+    and a subscription follow you to another device, and what online tables
+    need.
+  </p>
+</Base>
+
+<style>
+  .contact {
+    font-size: var(--step-1);
+    margin-block: 1.5rem 0.5rem;
+  }
+</style>
