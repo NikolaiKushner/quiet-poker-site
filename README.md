@@ -1,0 +1,25 @@
+# Quiet Poker — website
+
+The public site for [Quiet Poker](https://quietpoker.app): what the app is,
+what Plus adds, and the privacy, terms and support pages the App Store points
+at.
+
+Static files, built by Astro, served by Caddy from a directory on the same VPS
+that runs the app's API. The site reads no database, holds no secrets and runs
+no code at request time.
+
+```sh
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # dist/
+```
+
+Deploying is publishing a GitHub Release: the workflow builds the site,
+attaches `site.tar.gz`, and a timer on the server picks it up. Pushing to
+`main` deploys nothing.
+
+The rules that apply to changes here are in `AGENTS.md` — the short version is
+no tests, no prices, and nothing on the page that has not shipped.
+
+See `LICENSE`. Public to be read and to be fetched without a credential; not
+for reuse.
