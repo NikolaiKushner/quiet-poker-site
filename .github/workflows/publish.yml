@@ -1,0 +1,59 @@
+# Publishing the site is a button, the way releasing the app is a button.
+# Pushing to main builds nothing and deploys nothing.
+#
+# This creates the release and attaches the tarball in one run, rather than
+# building when a release appears. A release that exists before its assets do
+# is a release the server will see and be unable to fetch, every two minutes,
+# until the upload finishes.
+name: Publish the site
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # The tarball holds the contents of dist/, not dist/ itself, so the
+      # server unpacks it straight into the release directory it serves.
+      - name: Pack
+        id: pack
+        run: |
+          set -eu
+          tag="site-$(date -u +%Y%m%d-%H%M%S)-$(git rev-parse --short HEAD)"
+          tar -czf site.tar.gz -C dist .
+          sha256sum site.tar.gz | cut -d' ' -f1 > site.tar.gz.sha256
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "$tag"
+          cat site.tar.gz.sha256
+
+      # The digest is published beside the tarball so the box can check what it
+      # downloaded. It proves the transfer, not the source: both come from the
+      # same place. What it catches is a truncated download being unpacked over
+      # a working site.
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.pack.outputs.tag }}" \
+            --title "${{ steps.pack.outputs.tag }}" \
+            --notes "Built from ${{ github.sha }}." \
+            --target "${{ github.sha }}" \
+            site.tar.gz site.tar.gz.sha256
