@@ -1,15 +1,18 @@
 ---
 import '../styles/global.css';
 import ChipMark from '../components/ChipMark.astro';
+import { appStoreId } from '../config';
 
 interface Props {
   title: string;
   description: string;
   /** Pages that are mostly prose get a narrower column and a heading rhythm. */
   prose?: boolean;
+  /** schema.org objects for this page, emitted as one ld+json block. */
+  schema?: unknown[];
 }
 
-const { title, description, prose = false } = Astro.props;
+const { title, description, prose = false, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
 const year = new Date().getFullYear();
@@ -37,6 +40,27 @@ const year = new Date().getFullYear();
     <meta property="og:image:alt" content="The Quiet Poker chip mark and wordmark." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
+
+    {
+      /* iOS Safari's Smart App Banner. Appears only once there is a listing to
+         send people to; until then the meta tag would name an app that cannot
+         be opened. */
+      appStoreId && (
+        <meta name="apple-itunes-app" content={`app-id=${appStoreId}`} />
+      )
+    }
+
+    {
+      schema.length > 0 && (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(
+            schema.length === 1 ? schema[0] : { '@graph': schema }
+          )}
+        />
+      )
+    }
 
     <meta name="generator" content={Astro.generator} />
   </head>

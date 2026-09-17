@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Phone from '../components/Phone.astro';
 import ChipMark from '../components/ChipMark.astro';
-import { appStoreUrl } from '../config';
+import { appStoreUrl, supportEmail } from '../config';
 
 import table from '../assets/screenshots/table.png';
 import lobby from '../assets/screenshots/lobby.png';
@@ -13,73 +13,184 @@ import blinds from '../assets/screenshots/blinds.png';
 const shots = [
   {
     src: lobby,
-    alt: 'The Quiet Poker lobby, offering an offline table against bots, an online table, and outs and pot-odds drills.',
+    alt: "The Quiet Poker lobby on iPhone, offering an offline Texas Hold'em table against bots, an online table, and outs and pot-odds drills.",
     caption: 'Pick a table. Offline against bots, or online with friends.',
   },
   {
     src: table,
-    alt: 'A six-handed offline table in portrait, hole cards and the Fold, Check and Raise buttons along the bottom of the screen.',
+    alt: "A six-handed offline Texas Hold'em table in portrait on iPhone, hole cards and the Fold, Check and Raise buttons along the bottom of the screen.",
     caption: 'Portrait, six-max, everything you tap within one thumb.',
   },
   {
     src: showdown,
-    alt: 'A showdown with the full board dealt and the amount won shown beneath the hole cards.',
+    alt: 'A Texas Hold’em showdown with the full board dealt and the amount won shown beneath the hole cards.',
     caption: 'Showdown shows every hand that got there.',
   },
   {
     src: blinds,
-    alt: 'A list of blind levels from 1/2 upward, with buy-ins, and higher levels locked until the bank can cover them.',
+    alt: 'A list of blind levels from 1/2 upward with buy-ins, higher stakes locked until the play-chip bank can cover them.',
     caption: 'Blind levels unlock as the bank grows.',
   },
   {
     src: profile,
-    alt: 'A profile screen showing hands played, win rate, net result, VPIP, PFR and 3-bet, above a list of recent hands.',
+    alt: 'A poker statistics screen showing hands played, win rate, net result, VPIP, PFR and 3-bet, above a list of recent hands.',
     caption: 'The numbers, and the hands behind them.',
+  },
+];
+
+const steps = [
+  {
+    n: '01',
+    title: 'Open the app',
+    body: 'No sign-up, no email, no lobby queue. Offline play needs no account and no connection.',
+  },
+  {
+    n: '02',
+    title: 'Pick your stakes',
+    body: 'Blind levels from 1/2 upward, each with its own buy-in. Higher ones unlock as your play-chip bank grows.',
+  },
+  {
+    n: '03',
+    title: 'Play a hand',
+    body: 'Six-max against bots, dealt immediately. Fold, Check and Raise sit under your thumb in the same order every street.',
   },
 ];
 
 const features = [
   {
-    title: 'Dealt in immediately',
-    body: 'Offline six-max against bots. No lobby to wait in and no table to hunt for. Choose a blind level and the cards are out.',
+    title: 'Practise Hold’em offline, with no connection',
+    body: 'An offline six-max table against bots, dealt the moment you open it. On a plane, on the Underground, in a queue — no signal and no account needed.',
   },
   {
-    title: 'Made for one thumb',
-    body: 'The table is portrait and stays portrait. Fold, Check and Raise sit at the bottom in the same order on every street, so the hand is muscle memory. Swipe up to fold.',
+    title: 'Built to be played one-handed',
+    body: 'Portrait, always. Fold, Check and Raise stay in the bottom of the screen in the same order on every street, so the hand becomes muscle memory. Swipe up to fold.',
   },
   {
-    title: 'Read above, tap below',
-    body: 'The pot, the board and the other seats are things to read, not things to hit. Tap the board when you want the hand guide.',
+    title: 'Outs and pot-odds drills',
+    body: 'Count the cards that help. Call or fold on the number. Short practice for the two decisions that cost the most, away from the table with nothing riding on it.',
   },
   {
-    title: 'Drills, away from the table',
-    body: 'Count the outs. Call or fold on the number. Short practice for the two decisions that cost the most, without a hand riding on it.',
+    title: 'Private tables with friends',
+    body: 'Open a private online table and send the code. A home game that does not need everybody in the same room, and no money anywhere near it.',
   },
   {
-    title: 'Your own numbers',
-    body: 'Hands, win rate, net, VPIP, PFR and 3-bet, with the recent hands that produced them.',
+    title: 'The statistics that actually matter',
+    body: 'Hands, win rate, net result, VPIP, PFR and 3-bet, with the recent hands that produced them — so a leak is something you can see rather than suspect.',
   },
   {
-    title: 'Nothing watching you',
-    body: 'No advertising and no analytics software, from anyone. Nothing about you is sold or shared. Play offline without an account at all.',
+    title: 'No ads. No tracking. No data broker.',
+    body: 'The app contains no advertising and no analytics software from anyone. Nothing about you is sold or shared, and offline play sends nothing anywhere.',
+  },
+];
+
+const audiences = [
+  {
+    title: 'Learning Texas Hold’em',
+    body: 'Hands cost nothing, so you can play the spot ten times instead of reading about it once. Tap the board for the hand guide whenever you are not sure what beats what.',
+  },
+  {
+    title: 'Keeping sharp between home games',
+    body: 'Ranges, pace and pot control go stale between sessions. Twenty hands against bots on the way to work keeps them from it.',
+  },
+  {
+    title: 'Hosting the game yourself',
+    body: 'A private table and a code is the whole setup. Nobody installs a client, nobody sends anybody money, and nobody has to host in their kitchen.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is Quiet Poker real-money gambling?',
+    a: 'No. Quiet Poker is play chips only. They have no cash value, cannot be cashed out, sold, transferred to another player, or wagered on anything. There is no real-money game in the app and no way to win money or prizes.',
+  },
+  {
+    q: 'Can I play poker offline, with no internet?',
+    a: 'Yes. The offline six-max table against bots is the app’s main mode and needs no connection and no account. A connection is only needed for online tables and for carrying your chips to another device.',
+  },
+  {
+    q: 'Do I need an account to play?',
+    a: 'Not for offline play — open the app and you are dealt in, and nothing about you is stored anywhere. Signing in with Apple is what lets your chips and subscription follow you to another device, and what online tables need.',
+  },
+  {
+    q: 'Can I play poker with friends?',
+    a: 'Yes. Open a private online table and send friends the code. Only people with the code can sit down.',
+  },
+  {
+    q: 'Does the app have ads?',
+    a: 'No. There is no advertising software in the app, and no analytics software either, from anyone. Nothing about you is sold or shared.',
+  },
+  {
+    q: 'What does the Plus subscription add?',
+    a: 'A larger daily chip reward on top of the standard one, and cosmetic card backs and table colours. Everything else in the app stays exactly as it is without it. It renews until cancelled, and you cancel it in Settings or from the Shop tab.',
+  },
+  {
+    q: 'Can I cash out my chips?',
+    a: 'No, and that is deliberate. Chips are there to keep playing with. A chip pack buys chips the way a level pack buys levels — not a stake, and not a balance.',
+  },
+  {
+    q: 'Which devices does it run on?',
+    a: 'iPhone and iPad. The table is portrait on iPhone, by design, so it can be played with one thumb; iPad gets more seat room and allows landscape.',
+  },
+];
+
+const title = "Quiet Poker — Texas Hold'em Practice App for iPhone";
+const description =
+  "Practise Texas Hold'em on iPhone with play chips only. Offline six-max vs bots, private tables with friends, outs and pot-odds drills. No ads, no tracking.";
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Quiet Poker',
+    applicationCategory: 'GameApplication',
+    applicationSubCategory: 'Card Game',
+    operatingSystem: 'iOS',
+    description,
+    url: 'https://quietpoker.app/',
+    inLanguage: 'en',
+    isFamilyFriendly: false,
+    contentRating: 'Simulated gambling; intended for an adult audience',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      description:
+        'Free to play with play chips. Optional Plus subscription and one-off chip packs are sold through the App Store.',
+    },
+    featureList: [
+      "Offline six-max Texas Hold'em against bots",
+      'Private online tables joined with a code',
+      'Outs and pot-odds practice drills',
+      'Hand history with VPIP, PFR and 3-bet statistics',
+      'One-handed portrait table',
+      'No advertising or analytics software',
+    ],
+    author: { '@type': 'Person', name: 'Nikolai Kushner' },
+    publisher: { '@type': 'Person', name: 'Nikolai Kushner' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
   },
 ];
 ---
 
-<Base
-  title="Quiet Poker — calm Texas Hold'em practice for iPhone"
-  description="A quiet Texas Hold'em table for iPhone and iPad. Play chips only, offline against bots or online with friends, built to be played with one thumb."
->
+<Base title={title} description={description} schema={schema}>
   <section class="hero">
     <div class="wrap hero__inner">
       <div class="hero__copy">
         <p class="eyebrow">Texas Hold&rsquo;em &middot; iPhone and iPad</p>
-        <h1>Poker practice, without the noise.</h1>
+        <h1>Texas Hold&rsquo;em practice, without the noise.</h1>
         <p class="lede">
           A calm Hold&rsquo;em table you can play with one thumb. Sit down
-          against bots in a second, or open a private table and send friends
-          the code. Play chips only &mdash; nothing to cash out, and nothing to
-          win.
+          against bots in a second with no connection and no account, or open a
+          private table and send friends the code. Play chips only &mdash;
+          nothing to cash out, and nothing to win.
         </p>
 
         {
@@ -94,13 +205,18 @@ const features = [
             </p>
           )
         }
+
+        <ul class="hero__points">
+          <li>No ads, no analytics, no data broker</li>
+          <li>Works with no signal</li>
+          <li>Free to play</li>
+        </ul>
       </div>
 
       <div class="hero__shot">
         <Phone
           src={table}
-          alt="A six-handed Quiet Poker table in portrait, with the Fold, Check and Raise buttons along the bottom of the screen."
-          caption=""
+          alt="A six-handed Quiet Poker Texas Hold'em table in portrait on iPhone, with the Fold, Check and Raise buttons along the bottom of the screen."
           eager
         />
       </div>
@@ -108,11 +224,31 @@ const features = [
   </section>
 
   <section class="wrap section">
+    <p class="eyebrow">How it works</p>
+    <h2>Three taps and you are in a hand.</h2>
+    <p class="lede">
+      No lobby to wait in, no table to hunt for, and nothing to fill in first.
+    </p>
+
+    <ol class="steps">
+      {
+        steps.map((step) => (
+          <li>
+            <span class="steps__n">{step.n}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="wrap section">
     <p class="eyebrow">What it looks like</p>
     <h2>Five screens, and that is most of the app.</h2>
     <p class="lede">
-      There is one table, one theme, and no second screen doing the same job as
-      the first.
+      One table, one theme, and no second screen doing the same job as the
+      first.
     </p>
 
     <div class="shots" role="group" aria-label="Screenshots">
@@ -121,8 +257,8 @@ const features = [
   </section>
 
   <section class="wrap section">
-    <p class="eyebrow">Why it is built this way</p>
-    <h2>A table you can play standing on a train.</h2>
+    <p class="eyebrow">Why here</p>
+    <h2>A poker app that stays out of the way.</h2>
 
     <ul class="features">
       {
@@ -137,11 +273,27 @@ const features = [
   </section>
 
   <section class="wrap section">
+    <p class="eyebrow">Who it is for</p>
+    <h2>Three people it was built for.</h2>
+
+    <div class="audiences">
+      {
+        audiences.map((audience) => (
+          <div>
+            <h3>{audience.title}</h3>
+            <p>{audience.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap section">
     <p class="eyebrow">Plans</p>
-    <h2>Free to play. Plus if you want more of it.</h2>
+    <h2>Free to play, with an optional Plus subscription.</h2>
     <p class="lede">
-      Prices are set per country and shown in your own currency in the app&rsquo;s
-      Shop tab, so they are not printed here.
+      Prices are set per country and shown in your own currency in the
+      app&rsquo;s Shop tab, so they are not printed here.
     </p>
 
     <div class="plans">
@@ -152,7 +304,7 @@ const features = [
           <li>Offline six-max against bots, at every blind level the bank covers</li>
           <li>Online tables, including private ones opened with a code</li>
           <li>The outs and pot-odds drills</li>
-          <li>Your stats and hand history</li>
+          <li>Your statistics and hand history</li>
           <li>A chip reward every day</li>
         </ul>
       </div>
@@ -180,6 +332,24 @@ const features = [
   </section>
 
   <section class="wrap section">
+    <p class="eyebrow">Questions</p>
+    <h2>Asked often enough to answer here.</h2>
+
+    <div class="faq">
+      {
+        faqs.map((faq) => (
+          <details>
+            <summary>
+              <h3>{faq.q}</h3>
+            </summary>
+            <p>{faq.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap section">
     <div class="note">
       <h2>Play chips, and only play chips.</h2>
       <p>
@@ -190,6 +360,10 @@ const features = [
       </p>
       <p>
         Nothing here prepares you to gamble for money, and it is not meant to.
+      </p>
+      <p class="note__contact">
+        Anything else: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>, or
+        the <a href="/support">support page</a>.
       </p>
     </div>
   </section>
@@ -224,6 +398,22 @@ const features = [
     justify-self: center;
   }
 
+  .hero__points {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .hero__points li::before {
+    content: '\2713';
+    color: var(--accent);
+    margin-right: 0.45rem;
+  }
+
   .cta {
     display: inline-flex;
     align-items: center;
@@ -246,9 +436,33 @@ const features = [
     font-weight: 500;
   }
 
+  .steps {
+    list-style: none;
+    counter-reset: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .steps__n {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .steps p {
+    margin-top: 0.6rem;
+    color: var(--muted);
+  }
+
   .shots {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.75rem;
     margin-top: 2.5rem;
     overflow-x: auto;
     /* Proximity, not mandatory, and scroll-padding matching the inline padding.
@@ -286,9 +500,17 @@ const features = [
     padding: 1.5rem;
   }
 
-  .features p {
+  .features p,
+  .audiences p {
     margin-top: 0.6rem;
     color: var(--muted);
+  }
+
+  .audiences {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   }
 
   .plans {
@@ -325,6 +547,54 @@ const features = [
     margin-bottom: 0.5rem;
   }
 
+  .faq {
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    max-width: 48rem;
+  }
+
+  .faq details {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq summary {
+    cursor: pointer;
+    padding: 1.1rem 2rem 1.1rem 0;
+    position: relative;
+    list-style: none;
+  }
+
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq summary h3 {
+    display: inline;
+    font-size: var(--step-0);
+    font-weight: 600;
+  }
+
+  .faq summary::after {
+    content: '+';
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    translate: 0 -50%;
+    color: var(--muted);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .faq details[open] summary::after {
+    content: '\2212';
+  }
+
+  .faq p {
+    color: var(--muted);
+    padding-bottom: 1.25rem;
+    max-width: var(--measure);
+  }
+
   .note {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -336,5 +606,9 @@ const features = [
     color: var(--muted);
     max-width: var(--measure);
     margin-top: 1rem;
+  }
+
+  .note__contact {
+    color: var(--text);
   }
 </style>

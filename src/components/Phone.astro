@@ -5,7 +5,7 @@ import type { ImageMetadata } from 'astro';
 interface Props {
   src: ImageMetadata;
   alt: string;
-  caption: string;
+  caption?: string;
   /** The first screenshot on the page is worth loading eagerly. */
   eager?: boolean;
 }
@@ -14,38 +14,118 @@ const { src, alt, caption, eager = false } = Astro.props;
 ---
 
 <figure class="phone">
-  <div class="phone__frame">
-    <Image
-      src={src}
-      alt={alt}
-      widths={[320, 430, 860]}
-      sizes="(max-width: 640px) 70vw, 260px"
-      loading={eager ? 'eager' : 'lazy'}
-      decoding={eager ? 'sync' : 'async'}
-    />
+  <div class="device">
+    <span class="device__side device__side--left" aria-hidden="true"></span>
+    <span class="device__side device__side--right" aria-hidden="true"></span>
+    <div class="device__screen">
+      <Image
+        src={src}
+        alt={alt}
+        widths={[320, 430, 860]}
+        sizes="(max-width: 640px) 70vw, 280px"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding={eager ? 'sync' : 'async'}
+      />
+    </div>
+    <span class="device__gloss" aria-hidden="true"></span>
   </div>
-  <figcaption>{caption}</figcaption>
+  {caption && <figcaption>{caption}</figcaption>}
 </figure>
 
 <style>
   .phone {
     margin: 0;
     flex: 0 0 auto;
-    width: min(70vw, 260px);
+    width: min(70vw, 280px);
+    /* Every measurement below is in cqw, so the whole device — bezel, corner
+       radius, buttons — scales with the frame instead of needing a size prop. */
+    container-type: inline-size;
   }
 
-  .phone__frame {
-    border: 1px solid var(--border);
-    border-radius: 28px;
+  .device {
+    position: relative;
+    /* Roughly the real proportion: a 1.5 mm bezel on a 71.9 mm body. */
+    padding: 2.2cqw;
+    border-radius: 15cqw;
+    /* Brushed titanium reads as two highlights along the long edges rather
+       than a gradient from top to bottom, which looks like plastic. */
+    background: linear-gradient(
+      100deg,
+      #6c7076 0%,
+      #2b2f35 12%,
+      #3c4147 50%,
+      #2b2f35 88%,
+      #6c7076 100%
+    );
+    box-shadow:
+      0 0 0 0.35cqw rgb(0 0 0 / 0.6),
+      0 3cqw 8cqw -3cqw rgb(0 0 0 / 0.95);
+  }
+
+  .device__screen {
+    position: relative;
     overflow: hidden;
-    background: var(--bg);
-    /* The screenshots are already black to the edges, so the frame reads as
-       the device rather than as a box drawn around a picture. */
-    box-shadow: 0 18px 50px -24px rgb(0 0 0 / 0.9);
+    /* Concentric with the body: the screen's radius is the body's less the
+       bezel, which is what keeps the corners looking machined rather than
+       like a rounded picture inside a rounded box. */
+    border-radius: 12.8cqw;
+    background: #000;
+    display: flex;
+  }
+
+  .device__screen :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* A single diagonal sheen across the glass. Kept faint: the screenshots are
+     nearly black, and anything stronger washes out the table. */
+  .device__gloss {
+    position: absolute;
+    inset: 2.2cqw;
+    border-radius: 12.8cqw;
+    pointer-events: none;
+    background: linear-gradient(
+      104deg,
+      rgb(255 255 255 / 0.07) 0%,
+      rgb(255 255 255 / 0.02) 18%,
+      transparent 42%
+    );
+  }
+
+  /* The buttons. Left is the action button and the volume pair, right is the
+     side button — drawn as gradient stops on one sliver each, because three
+     more elements for three nubs is not worth the markup. */
+  .device__side {
+    position: absolute;
+    width: 0.9cqw;
+    border-radius: 0.45cqw;
+  }
+
+  .device__side--left {
+    left: -0.6cqw;
+    top: 17cqw;
+    height: 33cqw;
+    background: linear-gradient(
+      to bottom,
+      #4a4f55 0 7cqw,
+      transparent 7cqw 13cqw,
+      #4a4f55 13cqw 22cqw,
+      transparent 22cqw 24cqw,
+      #4a4f55 24cqw 33cqw
+    );
+  }
+
+  .device__side--right {
+    right: -0.6cqw;
+    top: 24cqw;
+    height: 14cqw;
+    background: #4a4f55;
   }
 
   figcaption {
-    margin-top: 0.875rem;
+    margin-top: 1.1rem;
     font-size: 0.875rem;
     color: var(--muted);
     text-wrap: pretty;
